@@ -6,7 +6,7 @@ import { IoLogoSkype } from "react-icons/io5";
 const Navbar = () => {
   return (
     <header className='flex flex-col absolute bg-white w-full h-[70px]  top-0 fixed min-lg:px-[120px] shadow'>
-        <nav className='flex justify-between items-center px-3 w-full border-b-[1] border-gray-300'>
+        <nav className='flex justify-between items-center px-3 w-full border-b-[1] border-gray-100'>
 
             <div className='flex justify-center items-center gap-1 '>
 
@@ -54,14 +54,14 @@ const Navbar = () => {
         </nav>
 
 
-        <div className='w-full h-[30px] bg-white flex min-md:hidden'>
+        <div className='w-full h-[30px] bg-blue-50 flex min-md:hidden'>
               <ul className='flex gap-5 items-center w-full  justify-center font-light '>
 
                 {centerNav.map(({url,label,icon:Icon})=>{
                     return(
-                        <li key={label} className='flex gap-2 justify-center items-center'>
-                            <Icon/>
-                            <Link href={url}> {label}
+                        <li key={label} className='flex gap-2 justify-center items-center '>
+                            <Icon className='text-purple-500'/>
+                            <Link href={url} className='text-md'> {label}
                             </Link>
                         </li>
                     )
