@@ -1,16 +1,25 @@
 import { centerNav, endNav } from '@/constants/navItems'
 import Link from 'next/link'
 import React from 'react'
+import { IoLogoSkype } from "react-icons/io5";
 
 const Navbar = () => {
   return (
-    <header className='flex absolute bg-white w-full h-[70px]  top-0 fixed min-lg:px-[120px]'>
-        <nav className='flex justify-between items-center px-3 w-full'>
-            <h1 className='font-bold uppercase text-2xl'>
-                Spico
-            </h1>
+    <header className='flex flex-col absolute bg-white w-full h-[70px]  top-0 fixed min-lg:px-[120px] shadow'>
+        <nav className='flex justify-between items-center px-3 w-full border-b-[1] border-gray-300'>
+
+            <div className='flex justify-center items-center gap-1 '>
+
+                <IoLogoSkype size={26} className='text-purple-900 cursor-pointer min-md:hidden '/>
+
+                    <h1 className='font-extrabold uppercase text-2xl text-purple-700'>
+                        Spico
+                    </h1>
+            </div>
+            
 
 
+    {/* MIDDLE NAV */}
             <ul className='flex gap-8 items-center justify-end max-md:hidden font-light '>
 
                 {centerNav.map(({url,label,icon:Icon})=>{
@@ -43,6 +52,22 @@ const Navbar = () => {
 
 
         </nav>
+
+
+        <div className='w-full h-[30px] bg-white flex min-md:hidden'>
+              <ul className='flex gap-5 items-center w-full  justify-center font-light '>
+
+                {centerNav.map(({url,label,icon:Icon})=>{
+                    return(
+                        <li key={label} className='flex gap-2 justify-center items-center'>
+                            <Icon/>
+                            <Link href={url}> {label}
+                            </Link>
+                        </li>
+                    )
+                })}
+            </ul>
+        </div>
     </header>
   )
 }
