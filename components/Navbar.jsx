@@ -17,10 +17,10 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 z-50 w-full bg-white shadow-sm">
+    <header className=" top-0  w-full bg-white shadow-sm fixed left-0 right-0 z-999">
 
       {/* ================= TOP BAR ================= */}
-      <nav className="flex h-[70px] items-center justify-between border-b border-gray-100 px-4 md:px-[120px]">
+      <nav className="flex h-[70px] items-center justify-between border-b border-gray-100 px-4 md:px-[80px]">
 
         {/* LEFT (Logo + Menu on Mobile) */}
         <div className="flex items-center gap-3">
@@ -36,7 +36,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-1">
             <Image src={'/logo.png'}  width={50} height={50} alt="404Wear"/>
-            <h1 className={`text-2xl font-extrabold uppercase text-violet-700 ${inter.className} font-extrabold`} >
+            <h1 className={`text-2xl font-extrabold uppercase text-violet-700 ${inter.className} `} >
               404Wear
             </h1>
           </Link>
@@ -90,7 +90,7 @@ const Navbar = () => {
       </nav>
 
       {/* ================= MOBILE MENU ================= */}
-   <AnimatePresence>
+   <AnimatePresence >
   {open && (
     <motion.div
       initial={{
