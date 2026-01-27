@@ -99,7 +99,6 @@ export default function Hero() {
 <div className="relative w-full overflow-hidden md:hidden">
 
   {/* Glow */}
-  <div className="absolute inset-0 bg-gradient-to-r from-indigo-200/40 via-pink-200/40 to-indigo-200/40 blur-3xl" />
 
   <motion.div
     animate={{

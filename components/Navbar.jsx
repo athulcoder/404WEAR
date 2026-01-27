@@ -1,11 +1,18 @@
 "use client";
 
 import { centerNav, endNav } from "@/constants/navItems";
+import { Inter } from "next/font/google";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { IoMenu, IoClose } from "react-icons/io5";
 import { IoLogoSkype } from "react-icons/io5";
 
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  display: "swap",
+});
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
@@ -28,10 +35,9 @@ const Navbar = () => {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-1">
-            <IoLogoSkype size={26} className="text-purple-900" />
-
-            <h1 className="text-2xl font-extrabold uppercase text-purple-700">
-              Spico
+            <Image src={'/logo.png'}  width={50} height={50} alt="404Wear"/>
+            <h1 className={`text-2xl font-extrabold uppercase text-violet-700 ${inter.className} font-extrabold`} >
+              404Wear
             </h1>
           </Link>
         </div>
@@ -46,9 +52,9 @@ const Navbar = () => {
                 className="
                   relative pb-1
                   transition
-                  hover:text-purple-700
+                  hover:text-violet-700
                   after:absolute after:bottom-0 after:left-0
-                  after:h-[1px] after:w-0 after:bg-purple-700
+                  after:h-[1px] after:w-0 after:bg-violet-700
                   after:transition-all after:duration-300
                   hover:after:w-full
                 "
