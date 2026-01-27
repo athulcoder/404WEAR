@@ -30,7 +30,7 @@ const Navbar = () => {
             onClick={() => setOpen(!open)}
             className="md:hidden"
           >
-            {open ? <IoClose size={26} /> : <IoMenu size={26} />}
+            {open ? <IoClose size={26}  className="text-black"/> : <IoMenu size={26} className="text-black" />}
           </button>
 
           {/* Logo */}
@@ -96,11 +96,11 @@ const Navbar = () => {
           <ul className="flex flex-col divide-y">
 
             {centerNav.map(({ url, label }) => (
-              <li key={label}>
+              <li key={label} className="">
                 <Link
                   href={url}
                   onClick={() => setOpen(false)}
-                  className="block px-5 py-4 text-gray-800 transition hover:bg-gray-50"
+                  className="block px-5 py-4 text-gray-800 transition hover:bg-gray-50 border-none  "
                 >
                   {label}
                 </Link>

@@ -3,6 +3,7 @@
 import { Montserrat, Inter } from "next/font/google";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -23,6 +24,7 @@ const shirts = [
 ];
 
 export default function Hero() {
+    const [active, setActive] = useState(1);
   return (
     <section className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-gradient-to-br from-white via-gray-50 to-gray-100 px-5 md:px-6">
 
@@ -46,9 +48,9 @@ export default function Hero() {
           <motion.div
             animate={{ y: [0, -6, 0] }}
             transition={{ repeat: Infinity, duration: 3 }}
-            className="mx-auto md:mx-0 inline-flex rounded-full bg-black/5 px-4 py-1 text-sm font-medium text-gray-700 backdrop-blur"
+            className="mx-auto md:mx-0 inline-flex rounded-full bg-black/5 px-4 py-1 my-4 text-sm font-medium text-gray-700 backdrop-blur"
           >
-            ⚡ Premium Dev Apparel
+             Premium Dev Apparel
           </motion.div>
 
           {/* Heading */}
@@ -85,51 +87,76 @@ export default function Hero() {
             transition={{ delay: 0.6 }}
             className="flex justify-center gap-3 md:justify-start"
           >
-            <button className="rounded-xl bg-gray-900 px-6 py-3 text-white shadow-xl transition hover:scale-105">
+            <button className="rounded-xl bg-gray-900 px-6 py-3 text-white shadow-xl transition hover:scale-105 cursor-pointer w-40 ">
               Shop
             </button>
 
-            <button className="rounded-xl border border-gray-300 px-6 py-3 text-gray-800 transition hover:bg-white">
-              Lookbook
+            <button className="rounded-xl border border-gray-300 px-6 py-3 text-gray-800 transition hover:bg-white w-40 cursor-pointer">
+              More
             </button>
           </motion.div>
         </motion.div>
 
-      {/* ================= MOBILE SLIDER ================= */}
-<div className="relative w-full overflow-hidden md:hidden">
+    {/* ================= MOBILE CUTOUT STACK ================= */}
+<div className="relative flex h-[420px] w-full items-center justify-center md:hidden">
 
-  {/* Glow */}
+  {/* Soft Glow */}
+  <div className="absolute inset-0 bg-gradient-to-br from-indigo-200/40 via-pink-200/40 to-white blur-3xl" />
 
-  <motion.div
-    animate={{
-      x: ["0%", "-50%"],
-    }}
-    transition={{
-      repeat: Infinity,
-      duration: 22,
-      ease: "linear",
-    }}
-    style={{ willChange: "transform" }}
-    className="relative flex w-[200%] gap-6 py-10"
-  >
-    {[...shirts, ...shirts].map((shirt, i) => (
-      <div
-        key={i}
-        className="relative min-w-[230px] rounded-3xl bg-white/90 p-3 shadow-2xl backdrop-blur-xl"
+  {shirts.map((shirt, i) => {
+
+    const isActive = active === i;
+
+    return (
+      <motion.div
+        key={shirt.id}
+
+        /* Tap Handler */
+        onClick={() => setActive(i)}
+
+        /* Landing */
+        initial={{
+          opacity: 0,
+          scale: 0.85,
+          y: 60,
+          rotate: shirt.rotate,
+        }}
+
+        animate={{
+          opacity: 1,
+
+          /* Bring to front */
+          scale: isActive ? 1.1 : 1,
+
+          y: isActive ? shirt.y - 20 : shirt.y,
+
+          rotate: isActive ? 0 : shirt.rotate,
+
+          x: isActive ? 0 : shirt.x * 0.5,
+        }}
+
+        transition={{
+          duration: 0.6,
+          ease: "easeOut",
+        }}
+
+        className="absolute cursor-pointer"
+
+        style={{
+          zIndex: isActive ? 50 : 10 + i,
+        }}
       >
         <Image
           src={shirt.src}
-          alt="T-shirt"
-          width={230}
-          height={290}
-          className="object-contain"
+          alt="404Wear T-shirt"
+          width={260}
+          height={340}
+          priority={i === 1}
+          className="object-contain drop-shadow-2xl"
         />
-
-        {/* Light reflection */}
-        <div className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-tr from-white/25 to-transparent" />
-      </div>
-    ))}
-  </motion.div>
+      </motion.div>
+    );
+  })}
 </div>
 
 
