@@ -36,7 +36,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-1">
             <Image src={'/logo.png'}  width={50} height={50} alt="404Wear"/>
-            <h1 className={`text-2xl font-extrabold uppercase text-violet-700 ${inter.className} `} >
+            <h1 className={`text-2xl font-extrabold  text-violet-700 font-sans `} >
               404Wear
             </h1>
           </Link>

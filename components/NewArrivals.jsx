@@ -4,7 +4,6 @@ import { Inter, Poppins } from "next/font/google";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { FaHeart, FaStar, FaShoppingBag } from "react-icons/fa";
-import { useState } from "react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -69,11 +68,6 @@ const products = [
 ];
 
 export default function NewArrivals() {
-  const [showAll, setShowAll] = useState(false);
-
-  // Show only 4 items by default on mobile
-  const visibleProducts = showAll ? products : products.slice(0, 4);
-
   return (
     <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-white via-gray-50 to-gray-100 px-4 py-16 md:px-16">
 
@@ -114,9 +108,9 @@ export default function NewArrivals() {
             transition: { staggerChildren: 0.12 },
           },
         }}
-        className="mx-auto grid max-w-7xl grid-cols-2 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4"
+        className="mx-auto grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
       >
-        {visibleProducts.map((product) => (
+        {products.map((product) => (
           <motion.div
             key={product.id}
             variants={{
@@ -134,7 +128,7 @@ export default function NewArrivals() {
             </button>
 
             {/* Image */}
-            <div className="relative h-[220px] w-full overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 sm:h-[260px]">
+            <div className="relative h-[240px] w-full overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 sm:h-[280px]">
               <Image
                 src={product.img}
                 alt={product.name}
@@ -144,17 +138,17 @@ export default function NewArrivals() {
             </div>
 
             {/* Content */}
-            <div className="space-y-3 p-4 sm:p-5">
+            <div className="space-y-3 p-5">
 
               {/* Title */}
               <h3
-                className={`${poppins.className} text-sm font-semibold text-gray-900 sm:text-lg`}
+                className={`${poppins.className} text-base font-semibold text-gray-900 sm:text-lg`}
               >
                 {product.name}
               </h3>
 
               {/* Rating */}
-              <div className="flex items-center gap-2 text-xs sm:text-sm">
+              <div className="flex items-center gap-2 text-sm">
                 <div className="flex items-center gap-1 text-yellow-400">
                   {[...Array(5)].map((_, i) => (
                     <FaStar
@@ -164,7 +158,7 @@ export default function NewArrivals() {
                           ? "text-yellow-400"
                           : "text-gray-300"
                       }
-                      size={12}
+                      size={14}
                     />
                   ))}
                 </div>
@@ -178,24 +172,24 @@ export default function NewArrivals() {
 
               {/* Price */}
               <p
-                className={`${inter.className} text-base font-semibold text-gray-900 sm:text-lg`}
+                className={`${inter.className} text-lg font-semibold text-gray-900`}
               >
                 {product.price}
               </p>
 
               {/* Actions */}
-              <div className="flex gap-2 pt-2">
+              <div className="flex gap-3 pt-2">
                 <button
-                  className={`${inter.className} flex flex-1 items-center justify-center gap-1 rounded-xl bg-gray-900 py-2 text-xs text-white transition hover:scale-105 hover:bg-black sm:gap-2 sm:py-2.5 sm:text-sm`}
+                  className={`${inter.className} flex flex-1 items-center justify-center gap-2 rounded-xl bg-gray-900 py-2.5 text-sm text-white transition hover:scale-105 hover:bg-black`}
                 >
-                  <FaShoppingBag size={12} />
+                  <FaShoppingBag size={14} />
                   Add
                 </button>
 
                 <button
-                  className={`${inter.className} flex-1 rounded-xl border border-gray-300 py-2 text-xs text-gray-800 transition hover:bg-white sm:py-2.5 sm:text-sm`}
+                  className={`${inter.className} flex-1 rounded-xl border border-gray-300 py-2.5 text-sm text-gray-800 transition hover:bg-white`}
                 >
-                  Buy
+                  Buy Now
                 </button>
               </div>
             </div>
@@ -205,16 +199,6 @@ export default function NewArrivals() {
           </motion.div>
         ))}
       </motion.div>
-
-      {/* ================= SHOW MORE / LESS (MOBILE) ================= */}
-      <div className="mt-10 text-center md:hidden">
-        <button
-          onClick={() => setShowAll(!showAll)}
-          className={`${inter.className} rounded-xl border border-gray-300 px-6 py-2 text-sm text-gray-800 shadow-sm transition hover:bg-white`}
-        >
-          {showAll ? "Show Less" : "Show More"}
-        </button>
-      </div>
 
       {/* ================= CTA ================= */}
       <motion.div
