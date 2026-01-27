@@ -3,8 +3,8 @@ import "./globals.css"
 
 
 export const metadata = {
-  title: "Vendora | E-commerce",
-  description: "Vendora ecommerce app",
+  title: "404Wear | E-commerce",
+  description: "404Wear ecommerce app",
 };
 
 export default function RootLayout({ children }) {
