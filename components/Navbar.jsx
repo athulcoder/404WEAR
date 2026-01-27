@@ -1,75 +1,111 @@
-import { centerNav, endNav } from '@/constants/navItems'
-import Link from 'next/link'
-import React from 'react'
+"use client";
+
+import { centerNav, endNav } from "@/constants/navItems";
+import Link from "next/link";
+import { useState } from "react";
+import { IoMenu, IoClose } from "react-icons/io5";
 import { IoLogoSkype } from "react-icons/io5";
 
 const Navbar = () => {
+  const [open, setOpen] = useState(false);
+
   return (
-    <header className='flex flex-col absolute bg-white w-full h-[70px]  top-0 fixed min-lg:px-[120px] shadow'>
-        <nav className='flex justify-between items-center px-3 w-full border-b-[1] border-gray-100'>
+    <header className="fixed top-0 z-50 w-full bg-white shadow-sm">
 
-            <div className='flex justify-center items-center gap-1 '>
+      {/* ================= TOP BAR ================= */}
+      <nav className="flex h-[70px] items-center justify-between border-b border-gray-100 px-4 md:px-[120px]">
 
-                <IoLogoSkype size={26} className='text-purple-900 cursor-pointer min-md:hidden '/>
+        {/* LEFT (Logo + Menu on Mobile) */}
+        <div className="flex items-center gap-3">
 
-                    <h1 className='font-extrabold uppercase text-2xl text-purple-700'>
-                        Spico
-                    </h1>
-            </div>
-            
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setOpen(!open)}
+            className="md:hidden"
+          >
+            {open ? <IoClose size={26} /> : <IoMenu size={26} />}
+          </button>
 
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-1">
+            <IoLogoSkype size={26} className="text-purple-900" />
 
-    {/* MIDDLE NAV */}
-            <ul className='flex gap-8 items-center justify-end max-md:hidden font-light '>
-
-                {centerNav.map(({url,label,icon:Icon})=>{
-                    return(
-                        <li key={label}>
-                            <Link href={url}> {label}
-                            </Link>
-                        </li>
-                    )
-                })}
-            </ul>
-
-            <ul className='flex max-md:gap-1 gap-3 items-center '>
-            {
-                endNav.map(({url,label,icon:Icon})=>{
-                    return (
-                        <div key={label} className={`${label==="Cart"?"  relative h-[70px] w-[30px] flex flex-col justify-center":""}`}>
-
-                        <Link href={url}  >
-                            <div className={`${label==="Cart"?"flex":"hidden"} w-5 h-5 bg-black rounded-full text-sm text-white flex justify-center items-center absolute top-3 right-[-3]`}>2</div>
-                            <Icon size={26} />
-                        </Link>
-
-                        </div>
-                    )
-                })
-            }
-
-            </ul>
-
-
-        </nav>
-
-
-        <div className='w-full h-[30px] bg-blue-50 flex min-md:hidden'>
-              <ul className='flex gap-5 items-center w-full  justify-center font-light '>
-
-                {centerNav.map(({url,label,icon:Icon})=>{
-                    return(
-                        <li key={label} className='flex gap-2 justify-center items-center '>
-                            <Icon className='text-purple-500'/>
-                            <Link href={url} className='text-md'> {label}
-                            </Link>
-                        </li>
-                    )
-                })}
-            </ul>
+            <h1 className="text-2xl font-extrabold uppercase text-purple-700">
+              Spico
+            </h1>
+          </Link>
         </div>
-    </header>
-  )
-}
 
-export default Navbar
+        {/* ================= CENTER (Desktop Only) ================= */}
+        <ul className="hidden items-center gap-8 font-light text-gray-800 md:flex">
+
+          {centerNav.map(({ url, label }) => (
+            <li key={label}>
+              <Link
+                href={url}
+                className="
+                  relative pb-1
+                  transition
+                  hover:text-purple-700
+                  after:absolute after:bottom-0 after:left-0
+                  after:h-[1px] after:w-0 after:bg-purple-700
+                  after:transition-all after:duration-300
+                  hover:after:w-full
+                "
+              >
+                {label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        {/* ================= RIGHT ================= */}
+        <ul className="flex items-center gap-3">
+
+          {endNav.map(({ url, label, icon: Icon }) => (
+            <li key={label} className="relative">
+
+              {/* Cart Badge */}
+              {label === "Cart" && (
+                <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-black text-xs text-white">
+                  2
+                </span>
+              )}
+
+              <Link
+                href={url}
+                className="text-gray-700 transition hover:text-purple-700"
+              >
+                <Icon size={24} />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      {/* ================= MOBILE MENU ================= */}
+      {open && (
+        <div className="border-t border-gray-100 bg-white md:hidden">
+
+          <ul className="flex flex-col divide-y">
+
+            {centerNav.map(({ url, label }) => (
+              <li key={label}>
+                <Link
+                  href={url}
+                  onClick={() => setOpen(false)}
+                  className="block px-5 py-4 text-gray-800 transition hover:bg-gray-50"
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+
+          </ul>
+        </div>
+      )}
+    </header>
+  );
+};
+
+export default Navbar;

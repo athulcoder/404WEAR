@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import "./globals.css"
 
+
 export const metadata = {
   title: "Vendora | E-commerce",
   description: "Vendora ecommerce app",
