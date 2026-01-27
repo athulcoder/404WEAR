@@ -1,5 +1,5 @@
 "use client";
-
+import { AnimatePresence, motion } from "framer-motion";
 import { centerNav, endNav } from "@/constants/navItems";
 import { Inter } from "next/font/google";
 import Image from "next/image";
@@ -90,26 +90,64 @@ const Navbar = () => {
       </nav>
 
       {/* ================= MOBILE MENU ================= */}
-      {open && (
-        <div className="border-t border-gray-100 bg-white md:hidden">
+   <AnimatePresence>
+  {open && (
+    <motion.div
+      initial={{
+        opacity: 0,
+        scaleY: 0,
+        scaleX: 0.95,
+        transformOrigin: "top left",
+      }}
+      animate={{
+        opacity: 1,
+        scaleY: 1,
+        scaleX: 1,
+      }}
+      exit={{
+        opacity: 0,
+        scaleY: 0,
+        scaleX: 0.95,
+      }}
+      transition={{
+        duration: 0.35,
+        ease: [0.4, 0, 0.2, 1], // Material-style easing
+      }}
+      className="overflow-hidden bg-white/95 backdrop-blur-xl md:hidden"
+    >
+      <motion.ul
+        initial={{ y: -8 }}
+        animate={{ y: 0 }}
+        exit={{ y: -8 }}
+        transition={{ duration: 0.25 }}
+        className={`flex flex-col ${inter.className}`}
+      >
+        {centerNav.map(({ url, label }, i) => (
+          <motion.li
+            key={label}
 
-          <ul className="flex flex-col divide-y">
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -10 }}
+            transition={{
+              delay: i * 0.05,
+              duration: 0.25,
+            }}
+          >
+            <Link
+              href={url}
+              onClick={() => setOpen(false)}
+              className="block px-6 py-4 text-gray-800 transition hover:bg-gray-50/60"
+            >
+              {label}
+            </Link>
+          </motion.li>
+        ))}
+      </motion.ul>
+    </motion.div>
+  )}
+</AnimatePresence>
 
-            {centerNav.map(({ url, label }) => (
-              <li key={label} className="">
-                <Link
-                  href={url}
-                  onClick={() => setOpen(false)}
-                  className="block px-5 py-4 text-gray-800 transition hover:bg-gray-50 border-none  "
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
-
-          </ul>
-        </div>
-      )}
     </header>
   );
 };
