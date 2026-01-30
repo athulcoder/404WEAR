@@ -4,6 +4,7 @@ import { Montserrat, Inter } from "next/font/google";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import TextSide from "./TextSide";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -36,67 +37,8 @@ export default function Hero() {
 
       <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-14 md:grid-cols-2">
 
-        {/* ================= LEFT ================= */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="relative z-20 space-y-6 text-center md:text-left"
-        >
-
-          {/* Badge */}
-          <motion.div
-            animate={{ y: [0, -6, 0] }}
-            transition={{ repeat: Infinity, duration: 3 }}
-            className="mx-auto md:mx-0 inline-flex rounded-full bg-black/5 px-4 py-1 my-4 text-sm font-medium text-gray-700 backdrop-blur"
-          >
-             Premium Dev Apparel
-          </motion.div>
-
-          {/* Heading */}
-          <motion.h1
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2 }}
-            className={`${montserrat.className} text-4xl font-extrabold leading-tight text-gray-900 sm:text-5xl lg:text-6xl`}
-          >
-            Where{" "}
-            <span className="text-indigo-600 bg-clip-text ">
-              Code
-            </span>{" "}
-            Meets
-            <br />
-            Fashion
-          </motion.h1>
-
-          {/* Text */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className={`${inter.className} text-lg text-gray-600`}
-          >
-            Premium developer apparel for late nights, clean builds,
-            and bold ideas. Designed for creators.
-          </motion.p>
-
-          {/* Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="flex justify-center gap-3 md:justify-start"
-          >
-            <button className="rounded-xl bg-gray-900 px-6 py-3 text-white shadow-xl transition hover:scale-105 cursor-pointer w-40 ">
-              Shop
-            </button>
-
-            <button className="rounded-xl border border-gray-300 px-6 py-3 text-gray-800 transition hover:bg-white w-40 cursor-pointer">
-              More
-            </button>
-          </motion.div>
-        </motion.div>
-
+       
+      <TextSide/>
     {/* ================= MOBILE CUTOUT STACK ================= */}
 <div className="relative flex h-[420px] w-full items-center justify-center md:hidden">
 

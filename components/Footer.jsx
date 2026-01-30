@@ -1,7 +1,9 @@
 "use client";
 
 import { Facebook, Instagram, Twitter, Youtube, Mail, MapPin, Phone } from "lucide-react";
-
+import { RiVisaLine } from "react-icons/ri";
+import { RiMastercardFill } from "react-icons/ri";import { FaStripe } from "react-icons/fa";
+import { FaCcPaypal } from "react-icons/fa";
 export default function Footer() {
   return (
     <footer className="bg-gray-950 text-gray-300 pt-16 pb-8">
@@ -82,12 +84,11 @@ export default function Footer() {
 
           {/* Payments */}
           <div className="flex gap-3 items-center text-sm">
-            <span>We Accept:</span>
-            <div className="flex gap-2">
-              <img src="/visa.svg" alt="Visa" className="h-6" />
-              <img src="/mastercard.svg" alt="Mastercard" className="h-6" />
-              <img src="/paypal.svg" alt="PayPal" className="h-6" />
-              <img src="/stripe.svg" alt="Stripe" className="h-6" />
+            <div className="flex gap-2 justify-center items-center">
+              <RiVisaLine size={30} className="hover:text-violet-500 duration-300"/>
+              <RiMastercardFill size={30} className="hover:text-violet-500 duration-300"/>
+              <FaStripe size={30} className="hover:text-violet-500 duration-300"/>
+              <FaCcPaypal size={30} className="hover:text-violet-500 duration-300"/>
             </div>
           </div>
 

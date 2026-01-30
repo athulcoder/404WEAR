@@ -1,5 +1,5 @@
 import Footer from "@/components/Footer";
-import Hero from "@/components/Hero";
+import Hero from "@/components/Hero/Hero";
 import Navbar from "@/components/Navbar";
 import NewArrivals from "@/components/NewArrivals";
 import Trending from "@/components/Trending";
