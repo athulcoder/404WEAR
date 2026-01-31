@@ -42,7 +42,7 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden"
+            className="lg:hidden"
           >
             {open ? <IoClose size={26}  className="text-black"/> : <IoMenu size={26} className="text-black" />}
           </button>
@@ -57,7 +57,7 @@ const Navbar = () => {
         </div>
 
         {/* ================= CENTER (Desktop Only) ================= */}
-        <ul className="hidden items-center gap-8 font-light text-gray-800 md:flex">
+        <ul className="hidden items-center gap-8 font-light text-gray-800 lg:flex">
 
           {centerNav.map(({ url, label }) => (
             <li key={label}>
@@ -129,7 +129,7 @@ const Navbar = () => {
         duration: 0.35,
         ease: [0.4, 0, 0.2, 1], // Material-style easing
       }}
-      className="overflow-hidden bg-white/95 backdrop-blur-xl md:hidden"
+      className="overflow-hidden bg-white/95 backdrop-blur-xl lg:hidden"
     >
       <motion.ul
         initial={{ y: -8 }}
@@ -155,7 +155,10 @@ const Navbar = () => {
               onClick={() => setOpen(false)}
               className="block px-6 py-4 text-gray-800 transition hover:bg-gray-50/60"
             >
+              <span className={`${sourcecode.className}`}> 
               {label}
+
+              </span>
             </Link>
           </motion.li>
         ))}

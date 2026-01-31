@@ -26,7 +26,7 @@ export default function Hero() {
         <div className="absolute right-1/4 bottom-1/4 h-72 w-72 rounded-full bg-pink-300/30 blur-3xl" />
       </div>
 
-      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-14 md:grid-cols-2">
+      <div className="mx-auto flex max-lg:flex-col w-full max-w-7xl grid-cols-1 items-center gap-14 md:grid-cols-2">
 
        
       <TextSide/>

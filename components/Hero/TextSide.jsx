@@ -54,7 +54,7 @@ const TextSide = () => {
 
          {/* ================= LEFT ================= */}
         <div
-          className="relative z-20 space-y-6 text-center md:text-left"
+          className="relative z-20 space-y-6 text-center lg:text-left"
         >
 
           {/* Badge */}
@@ -87,7 +87,7 @@ const TextSide = () => {
           {/* Buttons */}
           <div
             
-            className="flex justify-center gap-3 md:justify-start"
+            className="flex justify-center gap-3 lg:justify-start"
           >
             <button className="rounded-xl bg-gray-900 px-6 py-3 text-white shadow-xl transition hover:scale-105 cursor-pointer w-40 btn1">
               <span className={`${sourcecode.className}`}>Shop</span>
