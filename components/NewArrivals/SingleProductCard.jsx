@@ -17,7 +17,8 @@ const SingleProductCard = ({ product }) => {
       className="group relative overflow-hidden rounded-2xl 
       bg-[#f9fafb]/90 backdrop-blur-xl
       border border-gray-200/70
-      max-sm:max-w-[390px]
+
+      max-sm:w-[350px]
       shadow-md transition-all duration-300
       hover:-translate-y-2 hover:scale-[1.02] hover:shadow-xl"
     >
