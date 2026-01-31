@@ -1,22 +1,12 @@
 "use client";
 
-import { Montserrat, Inter } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import TextSide from "./TextSide";
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["600", "700", "800", "900"],
-  display: "swap",
-});
 
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  display: "swap",
-});
 
 const shirts = [
   { id: 1, src: "/assets/c1.png", rotate: -18, x: -120, y: 40, z: 1 },

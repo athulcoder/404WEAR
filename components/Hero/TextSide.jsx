@@ -1,36 +1,56 @@
 import React, { useRef } from 'react'
 import { motion } from "framer-motion";
-import { Inter, Montserrat } from 'next/font/google';
+import { JetBrains_Mono,Fira_Code, Source_Code_Pro ,} from 'next/font/google';
 import gsap from 'gsap';
+import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import { useGSAP } from '@gsap/react';
 
 
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
+const sourcecode = Source_Code_Pro({
+subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-dev",
   display: "swap",
 });
-const montserrat = Montserrat({
+
+const firecode = Fira_Code({
   subsets: ["latin"],
-  weight: ["600", "700", "800", "900"],
+  weight: ["600", "700"],
   display: "swap",
-});
+})
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["600", "700", "800"],
+  display: "swap",
+})
 
 const TextSide = () => {
 
     const headingRef = useRef(null);
-    
-    useGSAP(()=>(
-        gsap.from(headingRef.current,{
-            y:100,
-            duration:2,
-            delay:0.3,
+
+    useGSAP(()=>{
+        const tl = gsap.timeline();
+        tl.from(".title",{
+            y:70,
+            duration:1,
+            delay:0,
             opacity:0
-        })
-    ),{scope:headingRef})
+        }).from(
+            ".description",{
+                x:-90,
+                opacity:0,
+                duration:1,
+
+            }
+        )
+        
+},{scope:headingRef})
+
+
 
   return (
-    <div>
+    <div              ref={headingRef}
+>
 
          {/* ================= LEFT ================= */}
         <div
@@ -39,34 +59,29 @@ const TextSide = () => {
 
           {/* Badge */}
           <div
-       
+
             className="mx-auto md:mx-0 inline-flex rounded-full bg-black/5 px-4 py-1 my-4 text-sm font-medium text-gray-700 backdrop-blur"
           >
-             Premium Dev Apparel
+            <span className={`${sourcecode.className} flex gap-2 justify-center items-center`} >    <HiOutlineMagnifyingGlass/>        Premium Dev Apparel
+</span>
           </div>
 
           {/* Heading */}
           <h1
 
-            ref={headingRef}
-            className={`${montserrat.className} text-4xl font-extrabold leading-tight text-gray-900 sm:text-5xl lg:text-6xl`}
+            className={`${jetbrains.className} title text-4xl font-extrabold leading-tight text-gray-900 sm:text-5xl lg:text-6xl`}
           >
-            Where{" "}
-            <span className="text-indigo-600 bg-clip-text ">
-              Code
-            </span>{" "}
-            Meets
-            <br />
-            Fashion
+            <span className='text-cyan-600'>class</span> DeveloperFashion{" "}
+                
           </h1>
 
           {/* Text */}
           <p
        
-            className={`${inter.className} text-lg text-gray-600`}
+            className={`${jetbrains.className} description text-lg text-green-700 `}
           >
-            Premium developer apparel for late nights, clean builds,
-            and bold ideas. Designed for creators.
+            /*Premium developer apparel for late nights, clean builds,
+            and bold ideas. Designed for creators.*/
           </p>
 
           {/* Buttons */}
@@ -74,11 +89,11 @@ const TextSide = () => {
             
             className="flex justify-center gap-3 md:justify-start"
           >
-            <button className="rounded-xl bg-gray-900 px-6 py-3 text-white shadow-xl transition hover:scale-105 cursor-pointer w-40 ">
+            <button className="rounded-xl bg-gray-900 px-6 py-3 text-white shadow-xl transition hover:scale-105 cursor-pointer w-40 btn1">
               Shop
             </button>
 
-            <button className="rounded-xl border border-gray-300 px-6 py-3 text-gray-800 transition hover:bg-white w-40 cursor-pointer">
+            <button className="rounded-xl border border-gray-300 px-6 py-3 text-gray-800 transition hover:bg-white w-40 cursor-pointer btn2">
               More
             </button>
           </div>

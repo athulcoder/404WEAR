@@ -1,18 +1,24 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
 import { centerNav, endNav } from "@/constants/navItems";
-import { Inter } from "next/font/google";
+import {  Fira_Code, JetBrains_Mono } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { IoMenu, IoClose } from "react-icons/io5";
 import { IoLogoSkype } from "react-icons/io5";
+import { CodeSquare } from "lucide-react";
 
-const inter = Inter({
+const firecode = Fira_Code({
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
+  weight: ["600", "700"],
   display: "swap",
-});
+})
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["600", "700", "800"],
+  display: "swap",
+})
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
@@ -20,7 +26,7 @@ const Navbar = () => {
     <header className=" top-0  w-full bg-white shadow-sm fixed left-0 right-0 z-999">
 
       {/* ================= TOP BAR ================= */}
-      <nav className="flex h-[70px] items-center justify-between border-b border-gray-100 px-4 md:px-[80px]">
+      <nav className="flex h-[60px] items-center justify-between border-b border-gray-100 px-4 md:px-[80px]">
 
         {/* LEFT (Logo + Menu on Mobile) */}
         <div className="flex items-center gap-3">
@@ -35,9 +41,9 @@ const Navbar = () => {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-1">
-            <Image src={'/logo.png'}  width={50} height={50} alt="404Wear"/>
-            <h1 className={`text-2xl font-extrabold  text-violet-700 font-sans `} >
-              404Wear
+            <CodeSquare/>
+            <h1 className={`text-2xl    ${jetbrains.className} `} >
+              <span className="text-cyan-600">sudo</span>wear
             </h1>
           </Link>
         </div>
@@ -49,17 +55,19 @@ const Navbar = () => {
             <li key={label}>
               <Link
                 href={url}
-                className="
+                className={`
+                  ${firecode.className}
                   relative pb-1
                   transition
-                  hover:text-violet-700
+                  hover:text-cyan-700
                   after:absolute after:bottom-0 after:left-0
-                  after:h-[1px] after:w-0 after:bg-violet-700
+                  after:h-[1px] after:w-0 after:bg-cyan-600
                   after:transition-all after:duration-300
                   hover:after:w-full
-                "
+
+                `}
               >
-                {label}
+                {label}<span className="text-sm font-light text-gray-600">.tsx</span>
               </Link>
             </li>
           ))}
@@ -120,7 +128,7 @@ const Navbar = () => {
         animate={{ y: 0 }}
         exit={{ y: -8 }}
         transition={{ duration: 0.25 }}
-        className={`flex flex-col ${inter.className}`}
+        className={`flex flex-col ${jetbrains.className}`}
       >
         {centerNav.map(({ url, label }, i) => (
           <motion.li
