@@ -2,7 +2,6 @@
 
 import { Inter, Poppins } from "next/font/google";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { FaHeart, FaStar, FaShoppingBag } from "react-icons/fa";
 
 const inter = Inter({
@@ -78,12 +77,7 @@ export default function NewArrivals() {
       </div>
 
       {/* ================= HEADER ================= */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="mb-14 text-center"
-      >
+      <div className="mb-14 text-center">
         <h1
           className={`${poppins.className} text-3xl font-bold text-gray-900 md:text-5xl`}
         >
@@ -95,31 +89,14 @@ export default function NewArrivals() {
         >
           Fresh drops crafted for modern developers.
         </p>
-      </motion.div>
+      </div>
 
       {/* ================= GRID ================= */}
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={{
-          hidden: { opacity: 0 },
-          visible: {
-            opacity: 1,
-            transition: { staggerChildren: 0.12 },
-          },
-        }}
-        className="mx-auto grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-      >
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {products.map((product) => (
-          <motion.div
+          <div
             key={product.id}
-            variants={{
-              hidden: { opacity: 0, y: 40, scale: 0.95 },
-              visible: { opacity: 1, y: 0, scale: 1 },
-            }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            whileHover={{ y: -10, scale: 1.02 }}
-            className="group relative overflow-hidden rounded-3xl bg-white/80 shadow-xl backdrop-blur-xl"
+            className="group relative overflow-hidden rounded-3xl bg-white/80 shadow-xl backdrop-blur-xl transition hover:-translate-y-2 hover:scale-[1.02]"
           >
 
             {/* Wishlist */}
@@ -196,17 +173,12 @@ export default function NewArrivals() {
 
             {/* Glass Overlay */}
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/5 via-transparent to-white/10 opacity-0 transition group-hover:opacity-100" />
-          </motion.div>
+          </div>
         ))}
-      </motion.div>
+      </div>
 
       {/* ================= CTA ================= */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        className="mt-20 text-center"
-      >
+      <div className="mt-20 text-center">
         <h2
           className={`${poppins.className} text-2xl font-semibold text-gray-900 md:text-3xl`}
         >
@@ -224,7 +196,7 @@ export default function NewArrivals() {
         >
           Join Waitlist
         </button>
-      </motion.div>
+      </div>
 
     </section>
   );
