@@ -90,11 +90,12 @@ const TextSide = () => {
             className="flex justify-center gap-3 md:justify-start"
           >
             <button className="rounded-xl bg-gray-900 px-6 py-3 text-white shadow-xl transition hover:scale-105 cursor-pointer w-40 btn1">
-              Shop
+              <span className={`${sourcecode.className}`}>Shop</span>
             </button>
 
             <button className="rounded-xl border border-gray-300 px-6 py-3 text-gray-800 transition hover:bg-white w-40 cursor-pointer btn2">
-              More
+                            <span className={`${sourcecode.className}`}>More</span>
+
             </button>
           </div>
         </div>

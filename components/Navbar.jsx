@@ -1,7 +1,7 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
 import { centerNav, endNav } from "@/constants/navItems";
-import {  Fira_Code, JetBrains_Mono } from "next/font/google";
+import {  Fira_Code, JetBrains_Mono, Source_Code_Pro } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -19,6 +19,14 @@ const jetbrains = JetBrains_Mono({
   weight: ["600", "700", "800"],
   display: "swap",
 })
+
+
+const sourcecode = Source_Code_Pro  ({
+subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-dev",
+  display: "swap",
+});
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
@@ -56,7 +64,7 @@ const Navbar = () => {
               <Link
                 href={url}
                 className={`
-                  ${firecode.className}
+                  ${sourcecode.className}
                   relative pb-1
                   transition
                   hover:text-cyan-700
