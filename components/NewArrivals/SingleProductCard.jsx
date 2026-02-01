@@ -43,7 +43,7 @@ const SingleProductCard = ({ product }) => {
         border-r border-gray-200/60
         pt-14 text-gray-500"
       >
-        <FaTerminal className="cursor-pointer transition hover:text-blue-600" />
+        <FaTerminal className="cursor-pointer transition hover:text-cyan-600" />
         <FaHeart className="cursor-pointer transition hover:text-pink-500" />
         <FaShoppingBag className="cursor-pointer transition hover:text-emerald-500" />
       </div>
@@ -114,7 +114,7 @@ const SingleProductCard = ({ product }) => {
           <button
             className={`${sourcecode.className}
             flex-1 rounded-xl 
-            bg-gradient-to-r from-cyan-500 to-cyan-700
+            bg-gradient-to-r from-gray-900 to-gray-900
             py-2.5 text-xs text-white
             shadow-sm transition-all
             hover:brightness-110 hover:shadow-md`}
