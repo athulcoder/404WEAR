@@ -3,7 +3,7 @@
 import { firecode, jetbrains, sourcecode } from "@/fonts/fonts";
 import { Inter, Poppins } from "next/font/google";
 import Image from "next/image";
-import SingleProductCard from "./SingleProductCard";
+import SingleProductCard from "../Products/SingleProductCard";
 
 const inter = Inter({
   subsets: ["latin"],

@@ -3,8 +3,8 @@ import "./globals.css"
 
 
 export const metadata = {
-  title: "404Wear | E-commerce",
-  description: "404Wear ecommerce app",
+  title: "SudoWear | E-commerce",
+  description: "Sudowear ecommerce platform for developers and tech ppl",
 };
 
 export default function RootLayout({ children }) {
