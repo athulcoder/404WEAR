@@ -4,6 +4,7 @@ import { Facebook, Instagram, Twitter, Youtube, Mail, MapPin, Phone } from "luci
 import { RiVisaLine } from "react-icons/ri";
 import { RiMastercardFill } from "react-icons/ri";import { FaStripe } from "react-icons/fa";
 import { FaCcPaypal } from "react-icons/fa";
+import { jetbrains, sourcecode } from "@/fonts/fonts";
 export default function Footer() {
   return (
     <footer className="bg-gray-950 text-gray-300 pt-16 pb-8">
@@ -13,8 +14,8 @@ export default function Footer() {
 
           {/* Brand */}
           <div>
-            <h2 className="text-2xl font-bold text-white mb-3">404Wear</h2>
-            <p className="text-sm leading-relaxed mb-4">
+            <h2 className={` ${jetbrains.className} text-2xl font-bold text-white mb-3`}><span className="text-cyan-600">sudo</span>wear</h2>
+            <p className={`text-sm leading-relaxed mb-4 ${sourcecode.className}` }>
               Premium streetwear designed for comfort, confidence, and everyday style.
             </p>
 
@@ -33,7 +34,7 @@ export default function Footer() {
           </div>
 
           {/* Navigation */}
-          <div>
+          <div className={`${sourcecode.className}`}>
             <h3 className="text-white font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2 text-sm">
               <li><a href="#" className="hover:text-white">Home</a></li>
@@ -45,7 +46,7 @@ export default function Footer() {
           </div>
 
           {/* Support */}
-          <div>
+          <div className={`${sourcecode.className}`}>
             <h3 className="text-white font-semibold mb-4">Customer Care</h3>
             <ul className="space-y-2 text-sm">
               <li><a href="#" className="hover:text-white">FAQ</a></li>
@@ -57,7 +58,7 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div>
+          <div className={`${sourcecode.className}`}>
             <h3 className="text-white font-semibold mb-4">Contact Us</h3>
 
             <ul className="space-y-3 text-sm">
