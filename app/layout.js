@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
         <div className="relative h-screen ">
             <Navbar />
 
-            <div className=" w-full h-screen mt-[70px] bg-green-200">
+            <div className=" w-full h-screen mt-[60px] bg-white">
 
             {children}
 
