@@ -1,5 +1,6 @@
 'use client';
 
+import Pagination from './Pagination';
 import ProductCard from './ProductCard';
 
 const products = [
@@ -54,7 +55,7 @@ const products = [
 ]
 export default function ProductsGrid() {
   return (
-    <section className="bg-[#fafafa] py-10 px-3 sm:px-6">
+    <section className="bg-[#fbfbfb] py-10 px-3 sm:px-6 rounded-2xl min-md:shadow">
 
       <div
         className="
@@ -71,28 +72,7 @@ export default function ProductsGrid() {
         ))}
       </div>
 
-      {/* Pagination */}
-      <div className="mt-10 flex items-center justify-between max-w-7xl mx-auto text-sm">
-
-        <button className="px-4 py-2 border rounded-md hover:bg-gray-50">
-          ← Previous
-        </button>
-
-        <div className="flex gap-2 text-gray-600">
-          <span className="px-3 py-1 rounded bg-gray-100">1</span>
-          <span>2</span>
-          <span>3</span>
-          <span>…</span>
-          <span>8</span>
-          <span>9</span>
-          <span>10</span>
-        </div>
-
-        <button className="px-4 py-2 border rounded-md hover:bg-gray-50">
-          Next →
-        </button>
-
-      </div>
+      <Pagination/>
 
     </section>
   );

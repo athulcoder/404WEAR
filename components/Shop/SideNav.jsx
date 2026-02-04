@@ -15,7 +15,7 @@ const FilterSidebar = () => {
 
         font-mono text-sm text-gray-700
 
-        h-[90vh]
+        h-fit
         sticky top-18
 
         flex flex-col
@@ -98,7 +98,7 @@ const FilterSidebar = () => {
       {/* Apply Button */}
       <button
         className="
-          w-full mt-4 py-2.5
+          w-full mt-2 py-2.5
 
           bg-cyan-500
           hover:bg-cyan-600

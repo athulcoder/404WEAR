@@ -1,6 +1,7 @@
 'use client'
 import { shopNavs } from '@/constants/shopNav'
 import React, { useEffect, useRef } from 'react'
+import PriceFilterDialog from './DialogBox';
 
 const SubNav = () => {
     
@@ -41,11 +42,17 @@ const SubNav = () => {
   }, []);
 
 
+
+  const handlePriceRange=()=>{
+    return (
+      <PriceFilterDialog/>
+    )
+  }
   return (
-    <div className='fixed top-[60px] left-0  w-full h-[50px] bg-white  z-[9] trasfrom duration-300 min-md:hidden '       ref={navRef}>
+    <div className='fixed top-[60px] left-0  w-full h-[50px] bg-white  z-[9] trasfrom duration-300 min-md:hidden '   ref={navRef}>
         <ul className=' h-full w-full flex justify-evenly gap-5 items-center   text-sm font-light px-3 overflow-x-auto no-scrollbar min-md:hidden'>
             {shopNavs.map(({label,icon:Icon,action})=>(
-                <li key={label} className='border border-gray-300 px-4 rounded-full flex justify-center items-center gap-2 cursor-pointer hover:bg-gray-100 transform duration-150'>
+                <li key={label} className='border border-gray-300 px-4 rounded-full flex justify-center items-center gap-2 cursor-pointer hover:bg-gray-100 transform duration-150' onClick={handlePriceRange}>
                     <Icon/>    {label}
                 </li>
             )
