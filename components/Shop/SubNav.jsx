@@ -44,9 +44,8 @@ const SubNav = () => {
 
 
   const handlePriceRange=()=>{
-    return (
-      <PriceFilterDialog/>
-    )
+
+    
   }
   return (
     <div className='fixed top-[60px] left-0  w-full h-[50px] bg-white  z-[9] trasfrom duration-300 min-md:hidden '   ref={navRef}>

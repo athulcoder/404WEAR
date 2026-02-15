@@ -19,13 +19,13 @@ export const centerNav = [
         icon:TbShoppingBag,
         url:"/shop"
     },
+    // {
+    //     label:"Product",
+    //     icon:CiShoppingTag,
+    //     url:"/product"
+    // }   ,
     {
-        label:"Product",
-        icon:CiShoppingTag,
-        url:"/product"
-    }   ,
-    {
-        label:"Contact Us",
+        label:"FAQ",
         icon:PiPhoneCallLight,
         url:"/contact"
     }
