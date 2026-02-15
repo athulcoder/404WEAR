@@ -1,5 +1,5 @@
 import Navbar from "@/components/Navbar/Navbar";
-import "./globals.css"
+import "../global.css "
 
 
 export const metadata = {
@@ -14,10 +14,13 @@ export default function RootLayout({ children }) {
       <body>
 
         <div className="relative h-screen ">
+            <Navbar />
 
+            <div className=" w-full h-screen mt-[60px] bg-white">
 
             {children}
 
+            </div>
         </div>
       </body>
     </html>
