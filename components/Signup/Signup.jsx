@@ -84,7 +84,7 @@ const Login = () => (
 
 
              
-              <input type='submit' value='Sign In' className='w-full bg-cyan-600 h-[46px]  text-sm text-white rounded-lg cursor-pointer hover:bg-cyan-700'/>
+              <input type='submit' value='Sign Up' className='w-full bg-cyan-600 h-[46px]  text-sm text-white rounded-lg cursor-pointer hover:bg-cyan-700'/>
              </form>
           </div>
                   <p className='py-2 text-sm text-gray-700'>Already have an account? <Link href={'/login'} className='text-cyan-700'>Sign In now </Link></p>
