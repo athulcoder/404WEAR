@@ -1,5 +1,4 @@
 import Navbar from "@/components/Navbar/Navbar";
-import "../global.css "
 
 
 export const metadata = {
@@ -7,11 +6,9 @@ export const metadata = {
   description: "Sudowear ecommerce platform for developers and tech ppl",
 };
 
-export default function RootLayout({ children }) {
+export default function Layout({ children }) {
   return (
-    <html lang="en">
-      
-      <body>
+    
 
         <div className="relative h-screen ">
             <Navbar />
@@ -22,7 +19,6 @@ export default function RootLayout({ children }) {
 
             </div>
         </div>
-      </body>
-    </html>
+     
   );
 }
