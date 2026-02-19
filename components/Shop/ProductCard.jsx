@@ -1,17 +1,18 @@
 'use client';
 
+import { jetbrains } from '@/fonts/fonts';
 import Image from 'next/image';
 
 export default function ProductCard({ product }) {
   return (
-    <div className="group">
+    <div className="group border-gray-200 border-[1px] p-2 rounded-lg">
 
       {/* Image Box */}
       <div
         className="
           relative
           bg-[#f3f0ec]
-          rounded-2xl
+          rounded-2xl 
           p-6
           aspect-square
           overflow-hidden
@@ -42,7 +43,7 @@ export default function ProductCard({ product }) {
       <div className="mt-3 space-y-1">
 
         {/* Title */}
-        <h3 className="text-sm font-medium text-gray-900 line-clamp-2">
+        <h3 className={`${jetbrains.className} text-sm`}>
           {product.name}
         </h3>
 
@@ -58,10 +59,10 @@ export default function ProductCard({ product }) {
         </div>
 
         {/* Price */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 ">
 
           <span className="font-semibold text-gray-900">
-            ${product.price}
+            {product.price}
           </span>
 
           {product.oldPrice && (

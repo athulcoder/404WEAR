@@ -1,119 +1,153 @@
+import ColorPicker from '@/components/Product/ColorPicker'
+import MobileCartActions from '@/components/Product/MobileCartActions'
+import ProductImageGallery from '@/components/Product/ProductImageGallery'
+import SizeChart from '@/components/Product/SizeChart'
+import TrustBadges from '@/components/Product/TrustBadges'
+import { jetbrains, sourcecode } from '@/fonts/fonts'
+import Image from 'next/image'
+import Link from 'next/link'
+import React from 'react'
+import { CgStark } from 'react-icons/cg'
+import { CiStar } from 'react-icons/ci'
+import { FaStar } from 'react-icons/fa'
+import { IoIosArrowForward, IoIosShareAlt, IoMdShare } from 'react-icons/io'
 
-import { notFound } from "next/navigation"
-import { JetBrains_Mono, Source_Code_Pro } from "next/font/google"
-import Breadcrumbs from "@/components/Product/Breadcrumbs"
-import ProductGallery from "@/components/Product/ProductGallery"
-import ProductInfo from "@/components/Product/ProductInfo"
-import ReviewsSection from "@/components/Product/ReviewSection"
-
-
-// --- Font Setup ---
-const jetbrains = JetBrains_Mono({ subsets: ["latin"], weight: ["500", "700", "800"], variable: "--font-jetbrains" })
-const sourcecode = Source_Code_Pro({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-source" })
-
-// --- 1. SIMULATE BACKEND FETCH ---
-async function getProductData(slug) {
-  // In a real app: const res = await fetch(`https://api.yoursite.com/products/${slug}`)
-  
-  // Mock Response
-  return {
-    product: {
-      id: "prod_123",
-      sku: "8X-990",
-      name: "Cyberpunk Dev Mode Tee",
-      description: "High-quality cotton graphic t-shirt designed for long coding sessions.",
-      price: 260.00,
-      originalPrice: 300.00,
-      discountPercentage: 15,
-      rating: 4.8,
-      reviewCount: 128,
-      tags: ["New Arrival", "Limited Edition"],
-      sizes: ["S", "M", "L", "XL", "2XL"],
-      colors: [
-        { name: "Cyan", hexCode: "#0891b2", twClass: "bg-cyan-600" },
-        { name: "Dark", hexCode: "#111827", twClass: "bg-gray-900" },
-        { name: "White", hexCode: "#e5e7eb", twClass: "bg-gray-200" }
-      ],
-      images: [
-        { id: "img1", url: "/assets/c1.png", altText: "Front view of Cyberpunk Tee" },
-        { id: "img2", url: "/assets/c2.png", altText: "Back view" },
-        { id: "img3", url: "/shirt.png", altText: "Detail view" },
-      ],
-      reviews: [
-        { id: "r1", userName: "Dev_Guru", rating: 5, comment: "Excellent fit.", date: "2023-08-15", imageUrl: "/shirt.png" },
-        { id: "r2", userName: "ReactFan", rating: 4, comment: "Nice print.", date: "2023-08-10" }
-      ]
-    },
-    related: [
-       { id: "rel1", name: "System Override Tee", price: 45.00, thumbnailUrl: "/assets/c1.png", slug: "system-override" },
-       { id: "rel2", name: "Glitch Mode Hoodie", price: 85.00, thumbnailUrl: "/shirt.png", slug: "glitch-hoodie" },
-    ]
-  }
-}
-
-// --- 2. DYNAMIC METADATA ---
-export async function generateMetadata({ params }){
-  const data = await getProductData(params.slug)
-  if (!data) return {}
-
-  return {
-    title: `${data.product.name} | TechWear`,
-    description: data.product.description,
-    openGraph: {
-      images: [data.product.images[0].url],
-    },
-  }
-}
-
-// --- 3. PAGE COMPONENT ---
-export default async function ProductPage({ params }) {
-  const data = await getProductData(params.slug)
-  
-  if (!data) return notFound() // Handle 404
-  const { product, related } = data
-
-  // JSON-LD for SEO
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: product.name,
-    image: product.images.map(img => img.url),
-    description: product.description,
-    sku: product.sku,
-    offers: {
-      "@type": "Offer",
-      price: product.price,
-      priceCurrency: "USD",
-      availability: "https://schema.org/InStock",
-    }
+const product = {
+    id: 1,
+    name: "404 Debug Tee ",
+    price: "₹999",
+    rating: 4.7,
+    desc:"a super developer wear this yellow color and button preimum quality t-shoirt with more stocks ",
+    reviews: 124,
+    discount:"30%",
+    colors:[
+  { name: "Black", class: "bg-black", value: "black" },
+  { name: "White", class: "bg-white border border-border", value: "white" },
+  { name: "Gray", class: "bg-gray-500", value: "gray" },
+  { name: "Red", class: "bg-red-600", value: "red" },
+],
+    img: [
+      "/assets/c1.png",
+      "/assets/c2.png",
+      "/assets/c3.png",
+    ],
+     mrp:"₹1099"
   }
 
+const ProductPage = () => {
   return (
-    <div className={`min-h-screen bg-white text-gray-900 ${sourcecode.variable} ${jetbrains.variable} font-source`}>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+    <div className='min-xl:px-30'>
       
-      <Breadcrumbs productName={product.name} />
+      {/* navigation */}
 
-      <main className="max-w-7xl mx-auto px-6 py-10">
-        <div className="grid lg:grid-cols-12 gap-12">
-          
-          {/* Gallery - Client Component */}
-          <div className="lg:col-span-7 h-fit lg:sticky lg:top-10">
-            <ProductGallery images={product.images} />
-          </div>
-          
-          {/* Details - Client Component */}
-          <div className="lg:col-span-5 flex flex-col gap-8">
-            <ProductInfo product={product} />
-          </div>
-        </div>
-
-        {/* Reviews - Server Component */}
-        <ReviewsSection reviews={product.reviews} rating={product.rating} count={product.reviewCount} />
+      <div className='flex gap-1 justify-start items-center w-full p-2 text-md font-light bg-[#ebf5f7] min-md:bg-white'>
         
-        {/* Related - Server Component */}
-        {/* <RelatedProducts products={related} /> */}
-      </main>
+       <Link href={'/'} className='text-green-700' >Home</Link> <IoIosArrowForward/>
+       <Link href={'/shop'} className='text-green-700' >Shop</Link> <IoIosArrowForward/>
+       <span className='text-cyan-600 truncate w-[120px] font-bold'>{product.name}</span>
+
+      </div>
+
+
+    {/* main box */}
+    <div className=' flex flex-col justify-center items-center min-md:flex-row min-md:items-start'>
+        
+        
+        
+        <ProductImageGallery images={product.img} productName={product.name}/>
+        
+
+        {/* Details */}
+        <div className='w-full  px-3 flex flex-col items-start'>
+          <h1 className={`${jetbrains.className} text-4xl font-bold`}>{product.name}</h1>
+
+          <div className="flex items-center gap-2 text-xs">
+                    <div className="flex gap-1">
+                      {[...Array(5)].map((_, i) => (
+                        <FaStar
+                          key={i}
+                          size={19}
+                          className={
+                            i < Math.round(product.rating)
+                              ? "text-yellow-400"
+                              : "text-gray-300"
+                          }
+                        />
+                      ))}
+                    </div>
+          
+                    <span
+                      className={`${sourcecode.className} text-gray-600  font-semibold text-xl`}
+                    >
+                      {product.rating} ({product.reviews} reviews)
+                    </span>
+            </div>
+
+            
+           <p className='flex  items-center gap-2 py-2 '>
+             <span className='text-4xl font-semibold'>
+              {product.price}
+            </span>
+
+            <span className='line-through text-lg'>{product.mrp}</span>
+             <span className='text-lg font-bold text-cyan-600'>{
+                product.discount
+              }off
+              </span>
+            </p>
+
+           
+            <p className='text-gray-600 font-sans text-md pb-4'>
+              {product.desc}
+            </p>
+
+
+            {/* color picker */}
+
+            <ColorPicker colors={product.colors}/>
+
+         
+
+                <div className='flex gap-2   items-center py-4  w-full'>
+                <label htmlFor="size"> Select Size</label>
+                <select name="size" id="size" className='border-[1px] border-gray-200 rounded-xl px-3 py-1 '>
+                  <option value={'S'}>S</option>
+                  <option value={'M'}>M</option>
+                  <option value={'L'}>L</option>
+                  <option value={'XL'}>XL</option>
+                  <option value={'XXL'}>XXL</option>
+                  <option value={'3XL'}>3XL</option>
+                </select>
+
+
+                <SizeChart/>    
+                </div>
+
+
+              <div className='flex gap-2   items-center  w-full'>
+                  <label htmlFor="quantity"> Quantity</label>
+                <select name="quantity" id="quantity" className='border-[1px] border-gray-200 rounded-xl px-3 py-1 '>
+                  <option value={'1'}>1</option>
+                  <option value={'2'}>2</option>
+                  <option value={'3'}>3</option>
+                  <option value={'4'}>4</option>
+                  <option value={'5'}>5</option>
+                </select>
+                  
+                </div>
+
+
+                <TrustBadges/>
+
+
+              {/* action buttons */}
+              <MobileCartActions/>
+        </div>
+    </div>
+
+
     </div>
   )
 }
+
+export default ProductPage
