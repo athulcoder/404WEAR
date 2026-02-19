@@ -37,7 +37,7 @@ const product = {
 
 const ProductPage = () => {
   return (
-    <div className='min-xl:px-30 pb-50'>
+    <div className='min-xl:px-30 pb-50 min-md:px-16'>
       
       {/* navigation */}
 

@@ -2,9 +2,11 @@
 
 import { jetbrains } from '@/fonts/fonts';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function ProductCard({ product }) {
   return (
+    <Link href={'/products/123'}>
     <div className="group border-gray-200 border-[1px] p-2 rounded-lg">
 
       {/* Image Box */}
@@ -75,6 +77,7 @@ export default function ProductCard({ product }) {
 
       </div>
     </div>
+    </Link>
   );
 }
 

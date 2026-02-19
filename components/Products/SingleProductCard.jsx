@@ -12,9 +12,11 @@ import {
 import { HiShoppingBag } from "react-icons/hi2";
 import { PiShoppingCartThin } from "react-icons/pi";
 import { IoLogoReact } from "react-icons/io5";
+import Link from "next/link";
 
 const SingleProductCard = ({ product }) => {
   return (
+
     <div
       key={product.id}
       className="group relative overflow-hidden rounded-xl 
@@ -133,7 +135,8 @@ const SingleProductCard = ({ product }) => {
             <FiShoppingCart size={20}/>
           </button>
           {/* Buy */}
-          <button
+
+          <Link href={'/products/123'}
             className={`${sourcecode.className}
             rounded-xl 
             bg-gray-900
@@ -144,7 +147,7 @@ const SingleProductCard = ({ product }) => {
             hover:brightness-110 hover:shadow-md`}
           >
           View details <IoLogoReact className="text-cyan-500"/>
-          </button>
+          </Link>
 
          
 
