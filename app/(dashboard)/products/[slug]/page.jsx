@@ -1,5 +1,6 @@
 import ColorPicker from '@/components/Product/ColorPicker'
 import MobileCartActions from '@/components/Product/MobileCartActions'
+import ProductDetailsAccordion from '@/components/Product/ProductDetailsAccordion'
 import ProductImageGallery from '@/components/Product/ProductImageGallery'
 import SizeChart from '@/components/Product/SizeChart'
 import TrustBadges from '@/components/Product/TrustBadges'
@@ -36,7 +37,7 @@ const product = {
 
 const ProductPage = () => {
   return (
-    <div className='min-xl:px-30'>
+    <div className='min-xl:px-30 pb-50'>
       
       {/* navigation */}
 
@@ -142,6 +143,9 @@ const ProductPage = () => {
 
               {/* action buttons */}
               <MobileCartActions/>
+
+
+              <ProductDetailsAccordion/>
         </div>
     </div>
 

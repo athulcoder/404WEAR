@@ -19,7 +19,7 @@ const MobileCartActions = () => {
       </div>
 
       {/* Mobile (floating) */}
-      <div className="fixed bottom-4 left-4 right-4 z-50 md:hidden">
+      <div className="fixed bottom-4 left-4 right-4 z-50 md:hidden ">
         <div className="flex gap-3 rounded-xl bg-white
                         p-3 shadow-lg border border-gray-200">
           <button className="w-1/2 rounded-lg border border-cyan-500
