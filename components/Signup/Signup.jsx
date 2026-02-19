@@ -9,7 +9,7 @@ const Login = () => (
 
     {/* main box */}
 
-    <div className='w-[500px] px-2 min-md:w-[400px] h-fit  flex items-center  '>
+    <div className='w-[420px] px-2 min-md:w-[400px] h-fit  flex items-center  '>
 
       <div className=' flex justify-center flex-col items-center w-full'>
         <Code2Icon className='text-cyan-600' />

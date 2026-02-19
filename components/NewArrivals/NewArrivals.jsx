@@ -24,6 +24,7 @@ const products = [
     rating: 4.7,
     reviews: 124,
     img: "/assets/c1.png",
+     mrp:"₹1099"
   },
   {
     id: 2,
@@ -32,6 +33,7 @@ const products = [
     rating: 4.8,
     reviews: 98,
     img: "/assets/c2.png",
+     mrp:"₹1099"
   },
   {
     id: 3,
@@ -40,6 +42,7 @@ const products = [
     rating: 4.5,
     reviews: 210,
     img: "/assets/c3.png",
+    mrp:"₹1099"
   },
   {
     id: 4,
@@ -48,6 +51,7 @@ const products = [
     rating: 4.9,
     reviews: 76,
     img: "/assets/c1.png",
+     mrp:"₹1299"
   },
   {
     id: 5,
@@ -56,6 +60,7 @@ const products = [
     rating: 4.6,
     reviews: 143,
     img: "/assets/c2.png",
+     mrp:"₹1099"
   },
   {
     id: 6,
@@ -64,6 +69,7 @@ const products = [
     rating: 4.8,
     reviews: 65,
     img: "/assets/c3.png",
+     mrp:"₹1099"
   },
 ];
 

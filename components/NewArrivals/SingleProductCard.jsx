@@ -119,7 +119,7 @@ const SingleProductCard = ({ product }) => {
             shadow-sm transition-all
             hover:brightness-110 hover:shadow-md`}
           >
-            ▶ Buy Now()
+            View details
           </button>
 
           {/* Add */}

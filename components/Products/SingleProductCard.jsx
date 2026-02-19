@@ -1,7 +1,7 @@
 import { jetbrains, sourcecode } from "@/fonts/fonts";
 import Image from "next/image";
 import React from "react";
-
+import { FiShoppingCart } from "react-icons/fi";
 import {
   FaHeart,
   FaStar,
@@ -9,17 +9,21 @@ import {
   FaCode,
   FaTerminal,
 } from "react-icons/fa";
+import { HiShoppingBag } from "react-icons/hi2";
+import { PiShoppingCartThin } from "react-icons/pi";
+import { IoLogoReact } from "react-icons/io5";
 
 const SingleProductCard = ({ product }) => {
   return (
     <div
       key={product.id}
-      className="group relative overflow-hidden rounded-2xl 
+      className="group relative overflow-hidden rounded-xl 
       bg-[#f9fafb]/90 backdrop-blur-xl
       border border-gray-200/70
       max-sm:w-[350px]
+      
       shadow-md transition-all duration-300
-      hover:-translate-y-2 hover:scale-[1.02] hover:shadow-xl"
+        "
     >
       {/* VS Code Light Header */}
       <div
@@ -49,7 +53,7 @@ const SingleProductCard = ({ product }) => {
 
       {/* Image */}
       <div
-        className="relative ml-11 h-[220px] 
+        className="relative ml-11 h-[280px] 
         bg-[#fafbfc] overflow-hidden"
       >
         <Image
@@ -70,9 +74,10 @@ const SingleProductCard = ({ product }) => {
         {/* Title */}
         <h3
           className={`${jetbrains.className} 
-          text-sm font-semibold text-black`}
+          text-xl font-semibold text-black`}
         >
-          <span className="text-cyan-600">const</span> product = "{product.name}";
+          {product.name}
+          {/* <span className="text-cyan-600">const</span> product = "{product.name}"; */}
         </h3>
 
         {/* Rating */}
@@ -99,40 +104,49 @@ const SingleProductCard = ({ product }) => {
         </div>
 
         {/* Price */}
-        <p
+        <div className="flex gap-2 items-end">
+          <p
           className={`${sourcecode.className} 
-          text-emerald-600 text-base font-medium`}
+          text-emerald-600 text-2xl font-medium`}
         >
           {product.price};
         </p>
+        <p className="text-gray-500 line-through">  {product.mrp}</p>
+        </div>
 
         {/* Actions */}
-        <div className="flex gap-3 pt-3">
+        <div className="flex gap-3 pt-3 flex-4">
 
+
+             {/* Add */}
+          <button
+            className={`${sourcecode.className}
+            rounded-xl 
+            border border-gray-300/70
+            bg-white/60 backdrop-blur
+            py-4 text-xs text-gray-700
+            flex justify-center items-center
+            transition-all
+            flex-1
+            hover:bg-gray-100`}
+          >
+            <FiShoppingCart size={20}/>
+          </button>
           {/* Buy */}
           <button
             className={`${sourcecode.className}
-            flex-1 rounded-xl 
-            bg-gradient-to-r from-gray-900 to-gray-900
-            py-2.5 text-xs text-white
+            rounded-xl 
+            bg-gray-900
+            flex gap-2 justify-center items-center
+            py-4 text-xs text-white
+            flex-3
             shadow-sm transition-all
             hover:brightness-110 hover:shadow-md`}
           >
-             Buy Now()
+          View details <IoLogoReact className="text-cyan-500"/>
           </button>
 
-          {/* Add */}
-          <button
-            className={`${sourcecode.className}
-            flex-1 rounded-xl 
-            border border-gray-300/70
-            bg-white/60 backdrop-blur
-            py-2.5 text-xs text-gray-700
-            transition-all
-            hover:bg-gray-100`}
-          >
-            Add()
-          </button>
+         
 
         </div>
       </div>
