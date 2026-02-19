@@ -11,7 +11,7 @@ const TrustBadges = () => {
         backdrop-blur-3xl
 
         border border-white/10
-        mt-1
+        mt-2
         mb-2
         
       "

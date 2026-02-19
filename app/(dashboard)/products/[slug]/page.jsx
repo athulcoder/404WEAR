@@ -137,12 +137,12 @@ const ProductPage = () => {
                   
                 </div>
 
+              <MobileCartActions/>
 
                 <TrustBadges/>
 
 
               {/* action buttons */}
-              <MobileCartActions/>
 
 
               <ProductDetailsAccordion/>
