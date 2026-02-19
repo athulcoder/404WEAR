@@ -88,7 +88,7 @@ const SingleProductCard = ({ product }) => {
             {[...Array(5)].map((_, i) => (
               <FaStar
                 key={i}
-                size={12}
+                size={17}
                 className={
                   i < Math.round(product.rating)
                     ? "text-yellow-400"

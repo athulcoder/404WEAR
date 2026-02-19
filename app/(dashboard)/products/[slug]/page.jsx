@@ -60,7 +60,7 @@ const ProductPage = () => {
 
         {/* Details */}
         <div className='w-full  px-3 flex flex-col items-start'>
-          <h1 className={`${jetbrains.className} text-4xl font-bold`}>{product.name}</h1>
+          <h1 className={` text-3xl font-bold py-3`}>{product.name}</h1>
 
           <div className="flex items-center gap-2 text-xs">
                     <div className="flex gap-1">

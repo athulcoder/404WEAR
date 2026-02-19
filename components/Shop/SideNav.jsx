@@ -56,8 +56,8 @@ const FilterSidebar = () => {
           />
 
           <div className="flex justify-between text-xs mt-1 text-gray-500">
-            <span>$50</span>
-            <span>$200</span>
+            <span>450</span>
+            <span>6999</span>
           </div>
         </Section>
 
@@ -68,7 +68,7 @@ const FilterSidebar = () => {
           <Check label="50%+" />
         </Section>
 
-        {/* Colors */}
+        {/* Colors
         <Section title="Colors">
           <div className="grid grid-cols-6 gap-2">
             {colors.map((c, i) => (
@@ -82,7 +82,7 @@ const FilterSidebar = () => {
               />
             ))}
           </div>
-        </Section>
+        </Section> */}
 
         {/* Size */}
         <Section title="Size">
