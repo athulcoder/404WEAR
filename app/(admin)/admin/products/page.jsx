@@ -16,15 +16,15 @@ export default function AdminProductsPage() {
   const [products, setProducts] = useState([
     { id: "1", name: "Premium Oversized Hoodie", category: "Hoodies", description: "Heavyweight cotton hoodie.", status: true, variants: [], createdAt: "2023-10-20" },
   ]);
-  
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
-  
+
   // Form State
   const [formData, setFormData] = useState({
     name: "", category: "", description: "", status: true
   });
-  
+
   const [variants, setVariants] = useState([]);
 
   // Open Modal for Create or Edit
@@ -209,8 +209,8 @@ export default function AdminProductsPage() {
         </Card>
       </div>
 
-      <Modal 
-        isOpen={isModalOpen} 
+      <Modal
+        isOpen={isModalOpen}
         onClose={handleCloseModal}
         title={editingProduct ? "Edit Product" : "Create New Product"}
         description="Fill in the details and variants for this product."
@@ -221,41 +221,41 @@ export default function AdminProductsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="flex flex-col gap-2">
               <Label htmlFor="name">Product Name <span className="text-destructive">*</span></Label>
-              <Input 
-                id="name" 
+              <Input
+                id="name"
                 required
-                value={formData.name} 
-                onChange={(e) => setFormData({...formData, name: e.target.value})} 
-                placeholder="e.g., Premium Hoodie" 
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                placeholder="e.g., Premium Hoodie"
               />
             </div>
             <div className="flex flex-col gap-2">
               <Label htmlFor="category">Category <span className="text-destructive">*</span></Label>
-              <Input 
-                id="category" 
+              <Input
+                id="category"
                 required
-                value={formData.category} 
-                onChange={(e) => setFormData({...formData, category: e.target.value})} 
-                placeholder="e.g., Hoodies" 
+                value={formData.category}
+                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                placeholder="e.g., Hoodies"
               />
             </div>
             <div className="flex flex-col gap-2 md:col-span-2">
               <Label htmlFor="description">Description <span className="text-destructive">*</span></Label>
-              <textarea 
-                id="description" 
+              <textarea
+                id="description"
                 required
                 value={formData.description}
-                onChange={(e) => setFormData({...formData, description: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 className="flex min-h-[100px] w-full rounded-xl border border-border bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:opacity-50 resize-y"
                 placeholder="Describe the product..."
               />
             </div>
             <div className="flex items-center gap-2 md:col-span-2">
-              <input 
-                type="checkbox" 
-                id="status" 
-                checked={formData.status} 
-                onChange={(e) => setFormData({...formData, status: e.target.checked})}
+              <input
+                type="checkbox"
+                id="status"
+                checked={formData.status}
+                onChange={(e) => setFormData({ ...formData, status: e.target.checked })}
                 className="w-4 h-4 rounded border-border text-primary focus:ring-primary"
               />
               <Label htmlFor="status" className="cursor-pointer">Product is Active</Label>
@@ -285,11 +285,11 @@ export default function AdminProductsPage() {
                       </Button>
                     )}
                   </div>
-                  
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
                     <div className="flex flex-col gap-2">
                       <Label className="text-xs">Color <span className="text-destructive">*</span></Label>
-                      <Input required value={variant.color} onChange={(e) => updateVariant(variant.id, 'color', e.target.value)} placeholder="e.g., Black" />
+                      <Input className="w-[100px]" required value={variant.color} onChange={(e) => updateVariant(variant.id, 'color', e.target.value)} placeholder="e.g., Black" />
                     </div>
                     <div className="flex flex-col gap-2">
                       <Label className="text-xs">Size <span className="text-destructive">*</span></Label>
@@ -321,19 +321,19 @@ export default function AdminProductsPage() {
                     </div>
                     <div className="flex flex-wrap gap-4">
                       {variant.images.map(img => (
-                        <div 
-                          key={img.id} 
+                        <div
+                          key={img.id}
                           className={cn(
                             "relative w-28 h-28 rounded-xl overflow-hidden border-2 group transition-all",
                             img.isPrimary ? "border-primary shadow-sm" : "border-border hover:border-primary/50"
                           )}
                         >
                           <img src={img.url} alt="Variant" className="w-full h-full object-cover" />
-                          
+
                           {/* Actions overlay */}
                           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-between p-2">
                             <div className="flex justify-end">
-                              <button 
+                              <button
                                 type="button"
                                 onClick={() => removeImage(variant.id, img.id)}
                                 className="bg-destructive text-white rounded-full p-1.5 hover:bg-red-600 transition-colors"
@@ -342,7 +342,7 @@ export default function AdminProductsPage() {
                               </button>
                             </div>
                             <div className="flex justify-start">
-                              <button 
+                              <button
                                 type="button"
                                 onClick={() => setPrimaryImage(variant.id, img.id)}
                                 className={cn(
@@ -355,7 +355,7 @@ export default function AdminProductsPage() {
                               </button>
                             </div>
                           </div>
-                          
+
                           {/* Primary indicator (always visible if primary) */}
                           {img.isPrimary && (
                             <div className="absolute top-2 left-2 bg-primary text-primary-foreground text-[10px] font-bold px-2 py-0.5 rounded-full z-10 shadow-sm pointer-events-none">
@@ -375,7 +375,7 @@ export default function AdminProductsPage() {
               ))}
             </div>
           </div>
-          
+
           <div className="flex items-center justify-end gap-3 mt-4 border-t border-border pt-6 sticky bottom-0 bg-card py-2">
             <Button type="button" variant="outline" onClick={handleCloseModal}>Cancel</Button>
             <Button type="submit" size="lg">Save Product</Button>
