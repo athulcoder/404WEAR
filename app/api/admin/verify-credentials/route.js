@@ -19,7 +19,6 @@ export async function POST (req){
         }
     })
 
-    console.log(admin);
     if(!admin )
         return NextResponse.json({message:"Invalid username"},{
     status:400});
@@ -30,16 +29,17 @@ export async function POST (req){
 
 
     const maskedEmail = maskEmail(admin.email);
-    const otpCode = generateOTP();
-    storeOTP(admin.id,otpCode);
-    const res = await sendOTPEmail(admin.email,otpCode)
+    // const otpCode = generateOTP();
+    // storeOTP(admin.id,otpCode);
+    // const res = await sendOTPEmail(admin.email,otpCode)
 
-    if (!res.success)
-        return NextResponse.json({message:"Invalid username or password | couldn't send email"}, {status:400})
+    // if (!res.success||)
+    //     return NextResponse.json({message:"Invalid username or password | couldn't send email"}, {status:400})
     
-    return NextResponse.json({message:`Credentials are valid. OTP sent to ${maskedEmail}`},{
+    return NextResponse.json({message:`Credentials are valid. OTP sent to ${maskedEmail}`, email:maskedEmail,adminId:admin.id},{
         status:200
     });
+    
 
     
 
