@@ -46,7 +46,7 @@ export default function AdminLoginPage() {
 
       setSuccess( data.message||'Credentials verified! OTP sent to your email.');
       setAdminEmail(data.email);
-      setAdminId(data.id);
+      setAdminId(data.adminId);
       setTimeout(() => {
         setStep('otp');
         setSuccess('');

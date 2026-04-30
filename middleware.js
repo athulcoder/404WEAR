@@ -1,24 +1,43 @@
 import { NextResponse } from "next/server";
-import  { NextRequest } from "next/server";
+import { jwtVerify } from "jose";
 
-export function middleware(req) {
-  const pathname = req.nextUrl.pathname;
+const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
-  const isAdminRoute = pathname.startsWith("/admin");
-  const isPublicAdminRoute =
+export async function middleware(req) {
+  const { pathname } = req.nextUrl;
+
+  const isPublic =
     pathname === "/admin/login" ||
     pathname === "/admin/verify-otp";
 
-  const token = req.cookies.get("admin_session");
+  const token = req.cookies.get("admin_token")?.value;
 
-  // If trying to access protected admin route
-  if (isAdminRoute && !isPublicAdminRoute && !token) {
-    return NextResponse.redirect(new URL("/admin/login", req.url));
+  // 🔒 Protect admin routes
+  if (pathname.startsWith("/admin") && !isPublic) {
+    if (!token) {
+      return NextResponse.redirect(new URL("/admin/login", req.url));
+    }
+
+    try {
+      await jwtVerify(token, secret);
+    } catch {
+      return NextResponse.redirect(new URL("/admin/login", req.url));
+    }
   }
-  if (isPublicAdminRoute && token) {
-  return NextResponse.redirect(new URL("/admin/dashboard", req.url));
-}
 
+  // 🚫 Prevent logged-in admin from login page
+  if (isPublic && token) {
+    try {
+      await jwtVerify(token, secret);
+      return NextResponse.redirect(new URL("/admin/dashboard", req.url));
+    } catch {
+      return NextResponse.next();
+    }
+  }
 
   return NextResponse.next();
 }
+
+export const config = {
+  matcher: ["/admin/:path*"],
+};
