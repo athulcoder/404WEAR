@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
-import { maskEmail } from "@/lib/email";
+import { maskEmail, sendOTPEmail } from "@/lib/email";
 import { generateOTP, storeOTP } from "@/lib/otp";
 export async function POST (req){   
     const {username , password} =  await req.json()
@@ -19,7 +19,6 @@ export async function POST (req){
         }
     })
 
-    console.log(admin);
     if(!admin )
         return NextResponse.json({message:"Invalid username"},{
     status:400});
@@ -37,9 +36,10 @@ export async function POST (req){
     if (!res.success)
         return NextResponse.json({message:"Invalid username or password | couldn't send email"}, {status:400})
     
-    return NextResponse.json({message:`Credentials are valid. OTP sent to ${maskedEmail}`},{
+    return NextResponse.json({message:`Credentials are valid. OTP sent to ${maskedEmail}`, email:maskedEmail,adminId:admin.id},{
         status:200
     });
+    
 
     
 
