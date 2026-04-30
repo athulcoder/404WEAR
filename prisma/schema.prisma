@@ -18,7 +18,7 @@ model Admin {
   username String @unique
   password String
   role String
-  lastLogin DateTime @updatedAt
+  lastLogin DateTime?
   createdAt DateTime @default(now())
 }
 
@@ -31,8 +31,13 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-userAddresses UserAddress[] @relation("UserAddresses")  
-userWishlist Wishlist[]
+  userAddresses UserAddress[] @relation("UserAddresses")  
+  userWishlist Wishlist[]
+
+  orders Order[]
+  cart Cart?
+
+  couponUsages CouponUsage[]
 }
 
 enum EnumAddressType {
@@ -40,6 +45,8 @@ enum EnumAddressType {
   WORK
   OTHER
 }
+
+
 model UserAddress {
   id String @id @default(uuid())
   userId String
@@ -79,6 +86,7 @@ model Wishlist {
 
   @@unique([userId, variantId])
   @@index([userId])
+  @@index([variantId])
 }
 
 model Product {
@@ -97,13 +105,16 @@ model Product {
 model Category {
   id String @id @default(uuid())
   parentId String?
-  name String @unique
+  name String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   slug String @unique
   parent Category? @relation("CategoryHierarchy", fields: [parentId], references: [id])
   children Category[] @relation("CategoryHierarchy")
   products Product[]
+
+  @@index([parentId])
+  @@unique([name,parentId])
 }
 
 model ProductVariant {
@@ -111,17 +122,25 @@ model ProductVariant {
   productId String
   color String
   price Decimal
+  mrp Decimal
   size String
   stock Int
+  sku String @unique
+  reservedStock Int @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  isActive Boolean @default(true)
 
+  lowStockThreshold Int @default(5) // for admin ui 
   product Product @relation(fields: [productId], references: [id])
 
   wishlists Wishlist[]
-
   @@index([productId])
   productImages ProductImage[]
+  orderItems OrderItem[]
+  cartItems CartItem[]
+
+  @@unique([productId, color, size])
 }
 
 
@@ -136,3 +155,191 @@ model ProductImage {
   @@index([variantId])
 }
 
+
+model Cart {
+  id String @id @default(uuid())
+  userId String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  cartItems CartItem[]
+  user User @relation(fields: [userId], references: [id], onDelete:Cascade)
+
+}
+
+model CartItem {
+  id String @id @default(uuid())
+  cartId String
+  productVariantId String
+  quantity Int @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  cart Cart @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  productVariant ProductVariant @relation(fields: [productVariantId], references: [id])
+  @@index([cartId])
+  @@unique([cartId, productVariantId])
+}
+
+// ORDER enitites
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  SHIPPED
+  OUT_FOR_DELIVERY
+  DELIVERED
+  CANCELLED
+}
+
+model Order {
+  id String @id @default(uuid())
+  userId String
+  totalAmount Decimal
+  couponCode String?
+  discountAmount Decimal @default(0)
+
+  deliveryCharge Decimal @default(0)
+  taxAmount Decimal @default(0)
+  currency String @default("INR")
+
+  status OrderStatus @default(PENDING)
+  placedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  shippingAddress OrderAddress?
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orderItems OrderItem[]
+
+  payment Payment[]
+  @@index([userId])
+  couponUsages CouponUsage[]
+}
+
+
+model OrderItem {
+  id String @id @default(uuid())
+  orderId String
+  productVariantId String
+
+  quantity Int @default(1)
+  
+  unitPrice Decimal
+  totalPrice Decimal
+
+  productName String
+  color String
+  size String
+  imageUrl String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productVariant ProductVariant @relation(fields: [productVariantId], references: [id])
+  @@index([orderId])
+  @@index([productVariantId])
+}
+
+model OrderAddress {
+  id String @id @default(uuid())
+  orderId String @unique
+  fullName String
+  addressLine1 String
+  phoneNumber String
+  alternativePhoneNumber String?
+  landmark String?
+  addressLine2 String?
+  city String
+  district String
+  state String
+  postalCode String
+  country String
+  latitude Decimal?
+  longitude Decimal?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  order Order @relation(fields: [orderId], references: [id],onDelete: Cascade)
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  COD
+  UPI
+  CARD
+  NETBANKING
+}
+
+model Payment {
+  id String @id @default(uuid())
+  orderId String 
+  amount Decimal
+  paymentMethod PaymentMethod 
+  paymentStatus PaymentStatus @default(PENDING)
+  transactionId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  @@index([orderId])
+}
+
+
+
+
+// coupon 
+enum DiscountType {
+  PERCENTAGE
+  FIXED
+}
+model Coupon {
+  id String @id @default(uuid())
+  code String @unique
+
+  discountType DiscountType
+  discountValue Decimal
+
+  minOrderAmount Decimal?
+  maxDiscountAmount Decimal?
+  perUserLimit Int @default(1)
+  usageLimit Int?
+  usedCount Int @default(0)
+
+  isActive Boolean @default(true)
+
+  startsAt DateTime?
+  expiresAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  usages CouponUsage[]
+  
+}
+
+model CouponUsage {
+  id String @id @default(uuid())
+  couponId String
+  userId String
+  orderId String
+
+  usedAt DateTime @default(now())
+  
+  order Order @relation(fields: [orderId], references: [id])
+  coupon Coupon @relation(fields: [couponId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+  @@unique([couponId, userId, orderId])
+
+  @@index([userId])
+  @@index([couponId])
+  @@index([orderId])
+
+}
