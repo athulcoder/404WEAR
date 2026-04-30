@@ -44,7 +44,7 @@ export default function AdminLoginPage() {
         return;
       }
 
-      setSuccess( data.message||'Credentials verified! OTP sent to your email.');
+      setSuccess(data.message || 'Credentials verified! OTP sent to your email.');
       setAdminEmail(data.email);
       setAdminId(data.adminId);
       setTimeout(() => {
@@ -195,7 +195,7 @@ export default function AdminLoginPage() {
               <form onSubmit={handleCredentialsSubmit} className="space-y-5">
                 {/* Username Field */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-900 mb-2">
+                  <label className="block text-sm font-semibold text-gray-500 mb-2">
                     <span className="flex items-center gap-2">
                       <FiUser className="text-green-600" />
                       Username
@@ -206,7 +206,7 @@ export default function AdminLoginPage() {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder="Enter your username"
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-green-500 transition-colors bg-gray-50 hover:bg-white"
+                    className="w-full px-4 py-3 border-2 text-black border-gray-200 rounded-lg focus:outline-none focus:border-green-500 transition-colors bg-gray-50 hover:bg-white"
                     required
                     disabled={loading}
                   />
@@ -214,7 +214,7 @@ export default function AdminLoginPage() {
 
                 {/* Password Field */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-900 mb-2">
+                  <label className="block text-sm font-semibold text-gray-500 mb-2">
                     <span className="flex items-center gap-2">
                       <FiLock className="text-green-600" />
                       Password
@@ -225,7 +225,7 @@ export default function AdminLoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-green-500 transition-colors bg-gray-50 hover:bg-white"
+                    className="w-full px-4 py-3 border-2 text-black border-gray-200  rounded-lg focus:outline-none focus:border-green-500 transition-colors bg-gray-50 hover:bg-white"
                     required
                     disabled={loading}
                   />
