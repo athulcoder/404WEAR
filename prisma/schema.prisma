@@ -12,13 +12,127 @@ datasource db {
   provider = "postgresql"
 }
 
-
+//Admin model to store admin user information, including username, password, role, last login time, and timestamps for record creation and updates.
 model Admin {
   id String @id @default(uuid())
   username String @unique
   password String
   role String
-  lastLogin DateTime
+  lastLogin DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+
+model User {
+  id String @id @default(uuid())
+  email String @unique
+  password String
+  name String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+userAddresses UserAddress[] @relation("UserAddresses")  
+userWishlist Wishlist[]
 }
+
+enum EnumAddressType {
+  HOME
+  WORK
+  OTHER
+}
+model UserAddress {
+  id String @id @default(uuid())
+  userId String
+  fullName String
+  addressLine1 String
+  phoneNumber String
+  alternativePhoneNumber String?
+  landmark String?
+  addressLine2 String?
+  city String
+  district String
+  state String
+  postalCode String
+  country String
+  isDefault Boolean @default(false)
+  type EnumAddressType @default(HOME)
+
+  latitude Decimal?
+  longitude Decimal?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation("UserAddresses",fields: [userId], references: [id])
+  @@index([userId])
+}
+
+model Wishlist {
+  id String @id @default(uuid())
+  userId String 
+  variantId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+  productVariant ProductVariant @relation(fields: [variantId], references: [id])
+
+  @@unique([userId, variantId])
+  @@index([userId])
+}
+
+model Product {
+  id String @id @default(uuid())
+  name String
+  description String
+  isActive Boolean @default(true)
+  categoryId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  variants ProductVariant[]
+  category Category @relation(fields: [categoryId], references: [id])
+}
+
+model Category {
+  id String @id @default(uuid())
+  parentId String?
+  name String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  slug String @unique
+  parent Category? @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryHierarchy")
+  products Product[]
+}
+
+model ProductVariant {
+  id String @id @default(uuid())
+  productId String
+  color String
+  price Decimal
+  size String
+  stock Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  product Product @relation(fields: [productId], references: [id])
+
+  wishlists Wishlist[]
+
+  @@index([productId])
+  productImages ProductImage[]
+}
+
+
+model ProductImage {
+  id String @id @default(uuid())
+  variantId String
+  imageUrl String
+  isPrimary Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  productVariant ProductVariant @relation(fields: [variantId], references: [id])
+  @@index([variantId])
+}
+
