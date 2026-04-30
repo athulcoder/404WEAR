@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { FiMail, FiLock, FiUser, FiAlertCircle, FiCheckCircle, FiLoader } from 'react-icons/fi';
 import { MdAdminPanelSettings } from 'react-icons/md';
-import Link from 'next/link';   
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 export default function AdminLoginPage() {
@@ -46,8 +46,7 @@ export default function AdminLoginPage() {
 
       setSuccess( data.message||'Credentials verified! OTP sent to your email.');
       setAdminEmail(data.email);
-
-      setAdminId(data.adminId);
+      setAdminId(data.id);
       setTimeout(() => {
         setStep('otp');
         setSuccess('');
@@ -112,7 +111,7 @@ export default function AdminLoginPage() {
       setSuccess('Login successful! Redirecting...');
       setTimeout(() => {
         router.push('/admin/dashboard');
-      }, 1000);
+      }, 1500);
     } catch (err) {
       setError('An error occurred. Please try again.');
       console.error(err);

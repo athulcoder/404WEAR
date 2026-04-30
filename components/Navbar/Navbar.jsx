@@ -1,0 +1,174 @@
+"use client";
+import { AnimatePresence, motion } from "framer-motion";
+import { centerNav, endNav } from "@/constants/navItems";
+import {  Fira_Code, JetBrains_Mono, Source_Code_Pro } from "next/font/google";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import { IoMenu, IoClose } from "react-icons/io5";
+import { IoLogoSkype } from "react-icons/io5";
+import { CodeSquare } from "lucide-react";
+
+const firecode = Fira_Code({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  display: "swap",
+})
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["600", "700", "800"],
+  display: "swap",
+})
+
+
+const sourcecode = Source_Code_Pro  ({
+subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-dev",
+  display: "swap",
+});
+const Navbar = () => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <header className=" top-0  w-full bg-white shadow-sm fixed left-0 right-0 z-999">
+
+      {/* ================= TOP BAR ================= */}
+      <nav className="flex h-[60px] items-center justify-between border-b border-gray-100 px-4 md:px-[80px]">
+
+        {/* LEFT (Logo + Menu on Mobile) */}
+        <div className="flex items-center gap-3">
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setOpen(!open)}
+            className="lg:hidden"
+          >
+            {open ? <IoClose size={26}  className="text-black"/> : <IoMenu size={26} className="text-black" />}
+          </button>
+
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-1">
+            <CodeSquare/>
+            <h1 className={`text-2xl    ${jetbrains.className} `} >
+              <span className="text-cyan-600">sudo</span>wear
+            </h1>
+          </Link>
+        </div>
+
+        {/* ================= CENTER (Desktop Only) ================= */}
+        <ul className="hidden items-center gap-8 font-light text-gray-800 lg:flex">
+
+          {centerNav.map(({ url, label }) => (
+            <li key={label}>
+              <Link
+                href={url}
+                className={`
+                  ${sourcecode.className}
+                  relative pb-1
+                  transition
+                  hover:text-cyan-700
+                  after:absolute after:bottom-0 after:left-0
+                  after:h-[1px] after:w-0 after:bg-cyan-600
+                  after:transition-all after:duration-300
+                  hover:after:w-full
+
+                `}
+              >
+                {label}<span className="text-sm font-light text-gray-600">.tsx</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        {/* ================= RIGHT ================= */}
+        <ul className="flex items-center gap-3">
+
+          {endNav.map(({ url, label, icon: Icon }) => (
+            <li key={label} className="relative">
+
+              {/* Cart Badge */}
+              {label === "Cart" && (
+                <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-black text-xs text-white">
+                  2
+                </span>
+              )}
+
+              <Link
+                href={url}
+                className="text-gray-700 transition hover:text-purple-700"
+              >
+                <Icon size={24} />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      {/* ================= MOBILE MENU ================= */}
+   <AnimatePresence >
+  {open && (
+    <motion.div
+      initial={{
+        opacity: 0,
+        scaleY: 0,
+        scaleX: 0.95,
+        transformOrigin: "top left",
+      }}
+      animate={{
+        opacity: 1,
+        scaleY: 1,
+        scaleX: 1,
+      }}
+      exit={{
+        opacity: 0,
+        scaleY: 0,
+        scaleX: 0.95,
+      }}
+      transition={{
+        duration: 0.35,
+        ease: [0.4, 0, 0.2, 1], // Material-style easing
+      }}
+      className="overflow-hidden bg-white/95 backdrop-blur-xl lg:hidden"
+    >
+      <motion.ul
+        initial={{ y: -8 }}
+        animate={{ y: 0 }}
+        exit={{ y: -8 }}
+        transition={{ duration: 0.25 }}
+        className={`flex flex-col ${jetbrains.className}`}
+      >
+        {centerNav.map(({ url, label }, i) => (
+          <motion.li
+            key={label}
+
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -10 }}
+            transition={{
+              delay: i * 0.05,
+              duration: 0.25,
+            }}
+          >
+            <Link
+              href={url}
+              onClick={() => setOpen(false)}
+              className="block px-6 py-4 text-gray-800 transition hover:bg-gray-50/60"
+            >
+              <span className={`${sourcecode.className}`}> 
+              {label}
+
+              </span>
+            </Link>
+          </motion.li>
+        ))}
+      </motion.ul>
+    </motion.div>
+  )}
+</AnimatePresence>
+
+    </header>
+  );
+};
+
+export default Navbar;
