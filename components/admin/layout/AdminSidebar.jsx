@@ -3,19 +3,19 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { 
-  LayoutDashboard, 
-  ShoppingBag, 
+import {
+  LayoutDashboard,
+  ShoppingBag,
   Tags,
-  ShoppingCart, 
-  Users, 
+  ShoppingCart,
+  Users,
   Ticket,
   Package,
-  BarChart3, 
+  BarChart3,
   LogOut
 } from "lucide-react";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 
 const navItems = [
   { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
@@ -53,13 +53,13 @@ export function AdminSidebar() {
               <div
                 className={cn(
                   "relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group",
-                  isActive 
-                    ? "text-primary-foreground bg-primary shadow-sm" 
+                  isActive
+                    ? "text-primary-foreground bg-primary shadow-sm"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 )}
               >
                 {isActive && (
-                  <motion.div 
+                  <motion.div
                     layoutId="sidebar-active"
                     className="absolute inset-0 bg-primary rounded-xl -z-10"
                     initial={false}

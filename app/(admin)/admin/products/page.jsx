@@ -10,7 +10,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { Modal } from "@/components/ui/modal";
 import { Plus, Search, Edit2, Trash2, Image as ImageIcon, X, Star } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 
 export default function AdminProductsPage() {
   const [products, setProducts] = useState([
