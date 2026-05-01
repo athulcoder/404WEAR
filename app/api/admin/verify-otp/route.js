@@ -6,7 +6,7 @@ export async function POST(req) {
     const { adminId, otp } = await req.json();
 
     if (!adminId || !otp)
-        return NextResponse.json({ message: "Admin ID and OTP are required" }, {
+        return NextResponse.json({ message: "OTP is not correct" }, {
             status: 400
         });
 

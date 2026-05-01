@@ -1,0 +1,44 @@
+{
+    "name": "Premium Cotton T-Shirt",
+    "description": "High-quality premium cotton t-shirt with comfortable fit and stylish design.",
+    "isActive": true,
+    "categoryId": "clothing123",
+    "variants": [
+        {
+            "color": "Black",
+            "price": 499,
+            "mrp": 799,
+            "size": "M",
+            "stock": 20,
+            "sku": "TSHIRT-BLACK-M",
+            "isActive": true,
+            "images": [
+                {
+                    "imageUrl": "https://example.com/images/black-front.jpg",
+                    "isPrimary": true,
+                    "position": 1
+                },
+                {
+                    "imageUrl": "https://example.com/images/black-back.jpg",
+                    "isPrimary": false,
+                    "position": 2
+                }
+            ]
+        },
+        {
+            "color": "White",
+            "price": 450,
+            "mrp": 750,
+            "size": "L",
+            "stock": 15,
+            "sku": "TSHIRT-WHITE-L",
+            "isActive": true,
+            "images": [
+                {
+                    "imageUrl": "https://example.com/images/white-front.jpg",
+                    "isPrimary": true
+                }
+            ]
+        }
+    ]
+}

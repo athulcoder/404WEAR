@@ -116,6 +116,9 @@ export default function AdminProductsPage() {
 
   // Save Product
   const handleSaveProduct = (e) => {
+
+    console.log("HEllo this is a debug message ")
+    
     e.preventDefault();
     if (editingProduct) {
       setProducts(products.map(p => p.id === editingProduct.id ? {
@@ -129,6 +132,8 @@ export default function AdminProductsPage() {
         variantsCount: variants.length,
         createdAt: new Date().toISOString().split('T')[0]
       }]);
+
+
     }
     handleCloseModal();
   };
@@ -378,7 +383,7 @@ export default function AdminProductsPage() {
 
           <div className="flex items-center justify-end gap-3 mt-4 border-t border-border pt-6 sticky bottom-0 bg-card py-2">
             <Button type="button" variant="outline" onClick={handleCloseModal}>Cancel</Button>
-            <Button type="submit" size="lg">Save Product</Button>
+            <Button type="submit" size="lg" onClick={handleSaveProduct}>Save Product</Button>
           </div>
         </form>
       </Modal>
