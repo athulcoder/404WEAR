@@ -130,7 +130,11 @@ export default function AdminCategoriesPage() {
                       <Button
                         variant="ghost"
                         size="icon"
-                        onClick={() => deleteMutation.mutate(cat.id)}
+                        onClick={() => {
+                          console.log("Deleting:", cat.id);
+                          deleteMutation.mutate(cat.id)
+                        }
+                        }
                       >
                         <Trash2 className="w-4 h-4 text-red-500" />
                       </Button>
