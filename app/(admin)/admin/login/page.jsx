@@ -245,6 +245,7 @@ export default function AdminLoginPage() {
                   ) : (
                     'Verify & Send OTP'
                   )}
+
                 </button>
               </form>
             )}
@@ -278,7 +279,7 @@ export default function AdminLoginPage() {
                         onChange={(e) => handleOtpChange(index, e.target.value)}
                         onKeyDown={(e) => handleOtpKeyDown(index, e)}
                         placeholder="-"
-                        className="w-12 h-12 text-center text-2xl font-bold border-2 border-gray-300 rounded-lg focus:outline-none focus:border-green-500 focus:bg-green-50 transition-colors"
+                        className="w-12 h-12 text-center text-2xl font-bold border-2 border-gray-300 rounded-lg focus:outline-none focus:border-green-500 focus:bg-green-50 transition-colors text-black"
                         disabled={loading}
                       />
                     ))}
