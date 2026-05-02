@@ -9,19 +9,22 @@ import { Label } from "@/components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Modal } from "@/components/ui/modal";
 import { Plus, Search, Edit2, Trash2 } from "lucide-react";
+import { createCategory } from "@/lib/api/category";
 
 export default function AdminCategoriesPage() {
   const [categories, setCategories] = useState([
-    { id: "1", name: "Hoodies", slug: "hoodies", parent: "None", productsCount: 12 },
-    { id: "2", name: "T-Shirts", slug: "t-shirts", parent: "None", productsCount: 24 },
-    { id: "3", name: "Pants", slug: "pants", parent: "None", productsCount: 8 },
-    { id: "4", name: "Cargo Pants", slug: "cargo-pants", parent: "Pants", productsCount: 4 },
+    { id: "1", name: "Hoodies", slug: "hoodies", parentId: "None", productsCount: 12 },
+    { id: "2", name: "T-Shirts", slug: "t-shirts", parentId: "None", productsCount: 24 },
+    { id: "3", name: "Pants", slug: "pants", parentId: "None", productsCount: 8 },
+    { id: "4", name: "Cargo Pants", slug: "cargo-pants", parentId: "Pants", productsCount: 4 },
   ]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState({ name: "", slug: "", parent: "" });
+  const [formData, setFormData] = useState({ name: "", slug: "", parentId: "" });
 
-  const handleSave = () => {
-    setCategories([...categories, { id: Date.now().toString(), ...formData, productsCount: 0, parent: formData.parent || "None" }]);
+  const handleSave = async () => {
+    const data = await createCategory(formData)
+    console.log(data)
+    setCategories([...categories, { id: Date.now().toString(), ...formData, productsCount: 0, parentId: formData.parentId || "None" }]);
     setIsModalOpen(false);
   };
 
@@ -48,7 +51,7 @@ export default function AdminCategoriesPage() {
                 <TableRow>
                   <TableHead>Name</TableHead>
                   <TableHead>Slug</TableHead>
-                  <TableHead>Parent Category</TableHead>
+                  <TableHead>parentId Category</TableHead>
                   <TableHead>Products</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
@@ -58,7 +61,7 @@ export default function AdminCategoriesPage() {
                   <TableRow key={cat.id}>
                     <TableCell className="font-medium">{cat.name}</TableCell>
                     <TableCell className="text-muted-foreground">{cat.slug}</TableCell>
-                    <TableCell>{cat.parent}</TableCell>
+                    <TableCell>{cat.parentId}</TableCell>
                     <TableCell>{cat.productsCount}</TableCell>
                     <TableCell className="text-right">
                       <Button variant="ghost" size="icon"><Edit2 className="w-4 h-4 text-muted-foreground" /></Button>
@@ -76,15 +79,15 @@ export default function AdminCategoriesPage() {
         <div className="flex flex-col gap-4 py-4">
           <div className="flex flex-col gap-2">
             <Label htmlFor="name">Category Name</Label>
-            <Input id="name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} placeholder="e.g., Jackets" />
+            <Input id="name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="e.g., Jackets" />
           </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor="slug">Slug</Label>
-            <Input id="slug" value={formData.slug} onChange={(e) => setFormData({...formData, slug: e.target.value})} placeholder="e.g., jackets" />
+            <Input id="slug" value={formData.slug} onChange={(e) => setFormData({ ...formData, slug: e.target.value })} placeholder="e.g., jackets" />
           </div>
           <div className="flex flex-col gap-2">
-            <Label htmlFor="parent">Parent Category (Optional)</Label>
-            <Input id="parent" value={formData.parent} onChange={(e) => setFormData({...formData, parent: e.target.value})} placeholder="e.g., Winter Wear" />
+            <Label htmlFor="parentId">parentId Category (Optional)</Label>
+            <Input id="parentId" value={formData.parentId} onChange={(e) => setFormData({ ...formData, parentId: e.target.value })} placeholder="e.g., Winter Wear" />
           </div>
           <div className="flex justify-end mt-4 gap-2">
             <Button variant="outline" onClick={() => setIsModalOpen(false)}>Cancel</Button>
