@@ -1,98 +1,205 @@
 "use client";
 
 import React, { useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+
 import { AdminLayout } from "@/components/admin/layout/AdminLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table, TableBody, TableCell, TableHead, TableHeader, TableRow
+} from "@/components/ui/table";
 import { Modal } from "@/components/ui/modal";
-import { Plus, Search, Edit2, Trash2 } from "lucide-react";
-import { createCategory } from "@/lib/api/category";
+import { Plus, Edit2, Trash2 } from "lucide-react";
+
+import {
+  getAllCategories,
+  createCategory,
+  deleteCategory,
+} from "@/lib/api/category";
 
 export default function AdminCategoriesPage() {
-  const [categories, setCategories] = useState([
-    { id: "1", name: "Hoodies", slug: "hoodies", parentId: "None", productsCount: 12 },
-    { id: "2", name: "T-Shirts", slug: "t-shirts", parentId: "None", productsCount: 24 },
-    { id: "3", name: "Pants", slug: "pants", parentId: "None", productsCount: 8 },
-    { id: "4", name: "Cargo Pants", slug: "cargo-pants", parentId: "Pants", productsCount: 4 },
-  ]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState({ name: "", slug: "", parentId: "" });
+  const queryClient = useQueryClient();
 
-  const handleSave = async () => {
-    const data = await createCategory(formData)
-    console.log(data)
-    setCategories([...categories, { id: Date.now().toString(), ...formData, productsCount: 0, parentId: formData.parentId || "None" }]);
-    setIsModalOpen(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    slug: "",
+    parentId: "",
+  });
+
+  // ✅ Fetch categories
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["categories"],
+    queryFn: getAllCategories,
+  });
+
+  // ✅ Create category
+  const createMutation = useMutation({
+    mutationFn: createCategory,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["categories"] });
+      setIsModalOpen(false);
+      setFormData({ name: "", slug: "", parentId: "" });
+    },
+  });
+
+  // ✅ Delete category
+  const deleteMutation = useMutation({
+    mutationFn: deleteCategory,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["categories"] });
+    },
+  });
+
+  const handleSave = () => {
+    createMutation.mutate({
+      ...formData,
+      parentId: formData.parentId || null,
+    });
   };
+
+  // ✅ Keep layout even while loading
+  if (isLoading) {
+    return (
+      <AdminLayout>
+        <p className="p-6">Loading categories...</p>
+      </AdminLayout>
+    );
+  }
+
+  if (error) {
+    return (
+      <AdminLayout>
+        <p className="p-6 text-red-500">Failed to load categories</p>
+      </AdminLayout>
+    );
+  }
 
   return (
     <AdminLayout>
       <div className="flex flex-col gap-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+
+        {/* Header */}
+        <div className="flex justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-foreground">Categories</h1>
-            <p className="text-muted-foreground mt-1">Organize your products into categories.</p>
+            <h1 className="text-3xl font-bold">Categories</h1>
+            <p className="text-muted-foreground">
+              Organize your products into categories.
+            </p>
           </div>
+
           <Button onClick={() => setIsModalOpen(true)}>
             <Plus className="w-4 h-4 mr-2" /> Add Category
           </Button>
         </div>
 
+        {/* Table */}
         <Card>
           <CardHeader>
             <CardTitle>Category List</CardTitle>
           </CardHeader>
+
           <CardContent>
             <Table>
               <TableHeader>
                 <TableRow>
                   <TableHead>Name</TableHead>
                   <TableHead>Slug</TableHead>
-                  <TableHead>parentId Category</TableHead>
+                  <TableHead>Parent</TableHead>
                   <TableHead>Products</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
+
               <TableBody>
-                {categories.map((cat) => (
+                {data?.categories?.map((cat) => (
                   <TableRow key={cat.id}>
-                    <TableCell className="font-medium">{cat.name}</TableCell>
-                    <TableCell className="text-muted-foreground">{cat.slug}</TableCell>
-                    <TableCell>{cat.parentId}</TableCell>
+                    <TableCell>{cat.name}</TableCell>
+                    <TableCell>{cat.slug}</TableCell>
+                    <TableCell>{cat.parentId || "—"}</TableCell>
                     <TableCell>{cat.productsCount}</TableCell>
+
                     <TableCell className="text-right">
-                      <Button variant="ghost" size="icon"><Edit2 className="w-4 h-4 text-muted-foreground" /></Button>
-                      <Button variant="ghost" size="icon" onClick={() => setCategories(categories.filter(c => c.id !== cat.id))}><Trash2 className="w-4 h-4 text-destructive" /></Button>
+                      <Button variant="ghost" size="icon">
+                        <Edit2 className="w-4 h-4" />
+                      </Button>
+
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => deleteMutation.mutate(cat.id)}
+                      >
+                        <Trash2 className="w-4 h-4 text-red-500" />
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
+
             </Table>
           </CardContent>
         </Card>
       </div>
 
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Create Category">
-        <div className="flex flex-col gap-4 py-4">
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="name">Category Name</Label>
-            <Input id="name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="e.g., Jackets" />
+      {/* Modal */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Create Category"
+      >
+        <div className="flex flex-col gap-4">
+
+          <div>
+            <Label>Name</Label>
+            <Input
+              value={formData.name}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
+            />
           </div>
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="slug">Slug</Label>
-            <Input id="slug" value={formData.slug} onChange={(e) => setFormData({ ...formData, slug: e.target.value })} placeholder="e.g., jackets" />
+
+          <div>
+            <Label>Slug</Label>
+            <Input
+              value={formData.slug}
+              onChange={(e) =>
+                setFormData({ ...formData, slug: e.target.value })
+              }
+            />
           </div>
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="parentId">parentId Category (Optional)</Label>
-            <Input id="parentId" value={formData.parentId} onChange={(e) => setFormData({ ...formData, parentId: e.target.value })} placeholder="e.g., Winter Wear" />
+
+          <div>
+            <Label>Parent Category</Label>
+            <select
+              className="border rounded p-2"
+              value={formData.parentId}
+              onChange={(e) =>
+                setFormData({ ...formData, parentId: e.target.value })
+              }
+            >
+              <option value="">None</option>
+              {data?.categories?.map((cat) => (
+                <option key={cat.id} value={cat.id}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
           </div>
-          <div className="flex justify-end mt-4 gap-2">
-            <Button variant="outline" onClick={() => setIsModalOpen(false)}>Cancel</Button>
-            <Button onClick={handleSave}>Save</Button>
+
+          <div className="flex justify-end gap-2">
+            <Button variant="outline" onClick={() => setIsModalOpen(false)}>
+              Cancel
+            </Button>
+
+            <Button onClick={handleSave} disabled={createMutation.isPending}>
+              {createMutation.isPending ? "Saving..." : "Save"}
+            </Button>
           </div>
+
         </div>
       </Modal>
     </AdminLayout>
