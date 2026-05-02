@@ -30,7 +30,7 @@ export default function AdminLoginPage() {
     setSuccess('');
 
     try {
-      const response = await fetch('/api/admin/verify-credentials', {
+      const response = await fetch('/api/admin/auth/verify-credentials', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -94,7 +94,7 @@ export default function AdminLoginPage() {
     }
 
     try {
-      const response = await fetch('/api/admin/verify-otp', {
+      const response = await fetch('/api/admin/auth/verify-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ adminId, otp: otpCode }),
