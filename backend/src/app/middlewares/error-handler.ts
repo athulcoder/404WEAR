@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { AppError } from "../../shared/errors";
 import { logger } from "../../infrastructure/logger";
+import { ApiResponse } from "../response";
 
 
 export function errorHandler (
@@ -12,13 +13,14 @@ export function errorHandler (
 ){
     if (error instanceof AppError){
         logger.warn(error.message);
-        return res.status(error.statusCode).json({
-            success:false,
-            error:{
-                code:error.code,
-                message:error.message
-            }
-        });
+        ApiResponse.error(
+            res,
+            error.statusCode,
+            error.code,
+            error.message,
+        );
+        return;
+
     }
 
     logger.error({
@@ -26,12 +28,13 @@ export function errorHandler (
         url: req.originalUrl,
         error,
     });
-    return res.status(500).json({
-        success:false,
-        error:{
-            code:"INTERNAL_SERVER_ERROR",
-            message:error.message
-        }
-    })
+        ApiResponse.error(
+            res,
+            500,
+            "INTERNAL_SERVER_ERROR",
+            "An unexpected error occurred.",
+        );
+
+        return;
 
 }
