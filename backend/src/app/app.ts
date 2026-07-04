@@ -4,6 +4,7 @@ import cors from "cors";
 import compression from "compression";
 import cookieParser from "cookie-parser";
 import routes from "./routes";
+import { requestLogger } from "../infrastructure/logger";
 
 
 export function createApp(){
@@ -15,6 +16,9 @@ app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+app.use(requestLogger);
+
 app.use("/api/v1", routes);
 
 
