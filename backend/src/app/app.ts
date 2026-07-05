@@ -18,14 +18,15 @@ app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(notFoundHandler);
-app.use(errorHandler)
+
 app.use(requestLogger);
 
 app.use("/api/v1", routes);
 
+app.use(notFoundHandler);
+app.use(errorHandler)
+return app;
 
-return app
 }
 
 

@@ -1,11 +1,24 @@
 import { createHttpServer } from "./app/server";
+import { bootstrapDatabase } from "./bootstrap/database";
+import { env } from "./config/env";
+import { logger } from "./infrastructure/logger";
 
+const PORT = env.PORT;
 
-const server = createHttpServer();
+async function bootstrapApplication(){
+    try{
+        await bootstrapDatabase();
 
-const PORT = 5050;
+        const server = createHttpServer();
 
-server.listen(PORT, ()=>{
+        server.listen(PORT, ()=>{
+            logger.info(`Server started listening on ${PORT}`);
+        })
+    }
+    catch(error){
+        logger.fatal(error, 'Application failed to start');
+        process.exit(1);
+    }
+}
 
-    console.log(`Server started listening on port number : ${PORT}`);
-});
+bootstrapApplication();
