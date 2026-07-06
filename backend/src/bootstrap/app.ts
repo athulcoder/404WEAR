@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 import { requestLogger } from "../infrastructure/logger";
 import { notFoundHandler } from "../presentation/middlewares/not-found";
 import { errorHandler } from "../presentation/middlewares/error-handler";
-
+import healthRouter from "../presentation/api/routes/health.route"
 
 export function createApp(){
 const app = express();
@@ -21,7 +21,7 @@ app.use(cookieParser());
 app.use(requestLogger);
 
 // route here
-
+app.use('/api/v1',healthRouter );
 app.use(notFoundHandler);
 app.use(errorHandler)
 return app;
