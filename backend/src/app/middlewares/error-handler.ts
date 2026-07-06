@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { AppError } from "../../shared/errors";
 import { logger } from "../../infrastructure/logger";
-import { ApiResponse } from "../response";
+import { ApiResponse } from "../../shared/response";
 
 
 export function errorHandler (
