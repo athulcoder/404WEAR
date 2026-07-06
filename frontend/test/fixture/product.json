@@ -5,8 +5,10 @@
     "categoryId": "clothing123",
     "variants": [
         {
+
             "color": "Black",
             "price": 499,
+            
             "mrp": 799,
             "size": "M",
             "stock": 20,
