@@ -3,10 +3,9 @@ import helmet from "helmet";
 import cors from "cors";
 import compression from "compression";
 import cookieParser from "cookie-parser";
-import routes from "./routes";
 import { requestLogger } from "../infrastructure/logger";
-import { notFoundHandler } from "./middlewares/not-found";
-import { errorHandler } from "./middlewares/error-handler";
+import { notFoundHandler } from "../presentation/middlewares/not-found";
+import { errorHandler } from "../presentation/middlewares/error-handler";
 
 
 export function createApp(){
@@ -21,7 +20,7 @@ app.use(cookieParser());
 
 app.use(requestLogger);
 
-app.use("/api/v1", routes);
+// route here
 
 app.use(notFoundHandler);
 app.use(errorHandler)

@@ -1,4 +1,4 @@
-import { createHttpServer } from "./app/server";
+import { createHttpServer } from "./bootstrap/server";
 import { bootstrapDatabase } from "./bootstrap/database";
 import { env } from "./config/env";
 import { logger } from "./infrastructure/logger";
